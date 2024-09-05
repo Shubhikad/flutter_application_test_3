@@ -23,6 +23,10 @@ import 'package:flutter_application_test_3/views/register_view.dart';
             ListTile(
               leading: Icon(Icons.home),
               title: Text('H O M E'),
+              onTap: (){
+                Navigator.pushNamed(context, '/MainPage');
+              },
+              
 
             ),
             ListTile(
