@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test_3/firebase_options.dart';
 import 'package:flutter_application_test_3/views/login_view.dart';
+import 'package:flutter_application_test_3/views/pre_view.dart';
 import 'package:flutter_application_test_3/views/register_view.dart';
 
 void main() {
@@ -13,7 +14,7 @@ void main() {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const LoginView(),
+      home: const PreView(),
       routes: {
         '/Login': (context) => const LoginView(),
         '/Register': (context) => const RegisterView(),
@@ -55,9 +56,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-      ),
+      // appBar: AppBar(
+      //   title: const Text('Home'),
+      // ),
       body: FutureBuilder(
           future: Firebase.initializeApp(
             options: DefaultFirebaseOptions.currentPlatform,
@@ -68,7 +69,7 @@ class HomePage extends StatelessWidget {
                 final user = FirebaseAuth.instance.currentUser;
                 final emailVerified = user?.emailVerified ?? false;
                 if (emailVerified) {
-                  return LoginView();
+                  return const LoginView();
                 } else {
                   return const VerifyEmailView();
                 }
@@ -82,3 +83,5 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
+
