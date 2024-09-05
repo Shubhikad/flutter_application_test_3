@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test_3/firebase_options.dart';
+import 'package:flutter_application_test_3/views/main_page.dart';
 import 'package:flutter_application_test_3/views/register_view.dart';
 
 class LoginView extends StatefulWidget {
@@ -31,6 +32,7 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -141,11 +143,12 @@ class _LoginViewState extends State<LoginView> {
         
                                   print(userCredential);
                                 } on FirebaseAuthException catch (e) {
-                                  if (e.code == 'invalid-email')
+                                  if (e.code == 'invalid-email') {
                                     print('invalid email');
-                                  else if (e.code == 'email-already-in-use')
+                                  } else if (e.code == 'email-already-in-use')
                                     print('wrong password');
-                                }
+                                };
+                                Navigator.pushNamed(context, '/MainPage');
                               },
                               style: const ButtonStyle(
                                   backgroundColor:

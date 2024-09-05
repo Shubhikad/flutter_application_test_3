@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test_3/firebase_options.dart';
+import 'package:flutter_application_test_3/main.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -228,17 +229,22 @@ class _RegisterViewState extends State<RegisterView> {
                                         .createUserWithEmailAndPassword(
                                       email: email,
                                       password: password,
+                                    
                                     );
+                                    Navigator.pushNamed(context, '/HomePage');
                                     print(userCredential);
                                   } on FirebaseAuthException catch (e) {
-                                    if (e.code == 'weak-password')
-                                      print('weak password');
-                                    else if (e.code == 'email-already-in-use') {
-                                      print('email already in use');
+                                    print(e.code);
+                                    if (e.code == 'weak-password') {
+                                      const Text('weak password');
+                                    } else if (e.code == 'email-already-in-use') {
+                                      const Text('email already in use');
                                     } else if (e.code == 'invalid-email') {
-                                      print('invalid email');
+                                      const Text('invalid email');
                                     }
+
                                   }
+
                                 },
                                 style: const ButtonStyle(
                                   backgroundColor:
