@@ -28,11 +28,19 @@ import 'package:flutter_application_test_3/views/register_view.dart';
             ListTile(
               leading: Icon(Icons.person),
               title: Text('P R O F I L E'),
+              onTap: (){
+                Navigator.pushNamed(context, '/Profile');
+              },
 
             ),
             ListTile(
               leading: Icon(Icons.exit_to_app),
               title: Text('L O G O U T'),
+              onTap: () {
+                FirebaseAuth.instance.signOut();
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, '/PreView');
+                },
 
             )
           ],
