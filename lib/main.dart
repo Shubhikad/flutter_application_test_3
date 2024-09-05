@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test_3/firebase_options.dart';
+import 'package:flutter_application_test_3/views/login_view.dart';
 import 'package:flutter_application_test_3/views/register_view.dart';
 
 
@@ -36,6 +37,8 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
           
           TextButton(
             onPressed :() async{
+              await Firebase.initializeApp();            
+              print(FirebaseAuth.instance.currentUser);
               final user = FirebaseAuth.instance.currentUser;
               await user?.sendEmailVerification();
             },
@@ -65,7 +68,7 @@ class HomePage extends StatelessWidget {
             final user = FirebaseAuth.instance.currentUser;
             final emailVerified = user?.emailVerified ?? false;
             if(emailVerified){
-              return const Text('Done');
+              return LoginView();
             }
             else{
               return const VerifyEmailView();
