@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test_3/firebase_options.dart';
+import 'package:flutter_application_test_3/views/register_view.dart';
 
 
 
@@ -99,6 +100,13 @@ class _LoginViewState extends State<LoginView> {
                 }, 
                 child: const Text ('Login'),
                     ),
+
+                TextButton(
+                  onPressed: (){
+                    
+                  }, 
+                  child: const Text("Not registered yer? Click here")
+                  ),
                   ],
                 );
           default :
