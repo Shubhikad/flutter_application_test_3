@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test_3/firebase_options.dart';
+import 'package:flutter_application_test_3/views/alert_view.dart';
 import 'package:flutter_application_test_3/views/login_view.dart';
 import 'package:flutter_application_test_3/views/main_page.dart';
 import 'package:flutter_application_test_3/views/pre_view.dart';
@@ -18,7 +19,7 @@ void main() async {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: const AlertView(),
       routes: {
         '/Login': (context) => const LoginView(),
         '/Register': (context) => const RegisterView(),
@@ -52,10 +53,8 @@ class HomePage extends StatelessWidget {
                   return const PreView();
                 // } else if (snapshot.hasData && !emailVerified) {
                 //   return const VerifyEmailView();
-                } else if (snapshot.hasData && emailVerified) {
+                } else if (snapshot.hasData) {
                   return const MainPage();
-                } else if (emailVerified) {
-                  return const LoginView();
                 } else {
                   return const PreView();
                 }
