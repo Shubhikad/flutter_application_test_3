@@ -46,7 +46,17 @@ import 'package:flutter_application_test_3/views/register_view.dart';
                   Navigator.pushNamed(context, '/PreView');
                 },
 
-            )
+            ),
+            // ListTile(
+            //   leading: Icon(Icons.exit_to_app),
+            //   title: Text('D E L E T E'),
+            //   onTap: () {
+            //     FirebaseAuth.instance.currentUser!.delete();
+            //       Navigator.pop(context);
+            //       Navigator.pushNamed(context, '/PreView');
+            //     },
+
+            // ),
           ],
         ),
       ),

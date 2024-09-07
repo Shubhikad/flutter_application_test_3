@@ -3,12 +3,15 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test_3/firebase_options.dart';
 import 'package:flutter_application_test_3/views/alert_view.dart';
+import 'package:flutter_application_test_3/views/error_view.dart';
 import 'package:flutter_application_test_3/views/login_view.dart';
 import 'package:flutter_application_test_3/views/main_page.dart';
 import 'package:flutter_application_test_3/views/pre_view.dart';
 import 'package:flutter_application_test_3/views/profile_view.dart';
 import 'package:flutter_application_test_3/views/register_view.dart';
 import 'package:flutter_application_test_3/views/verify_email.dart';
+
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,12 +30,16 @@ void main() async {
         '/HomePage': (context) => const HomePage(),
         '/Profile': (context) => const ProfileView(),
         '/PreView': (context) => const PreView(),
+        '/ErrorEmailView': (context) => const ErrorEmailView(),
+        '/ErrorPasswordView': (context) => const ErrorPasswordView(),
+         '/InvalidEmail': (context) => const InvalidEmail(),
+        
       }));
 }
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

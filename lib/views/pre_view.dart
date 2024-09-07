@@ -14,7 +14,13 @@ class PreView extends StatelessWidget {
         body: Center(
           child: Column(
             children: [
-              const SizedBox(height: 100),
+              Row(
+                children: [
+                  Expanded(flex : 1, child: const SizedBox(width: 30)),
+                  Expanded(flex: 2,child: Image.asset("lib/images/Aditya Birla Logo 1.png",)),
+                ],
+              ),
+              
               const Text(
                 'APP NAME',
                 style: TextStyle(
@@ -22,44 +28,68 @@ class PreView extends StatelessWidget {
                     fontSize: 54,
                     color: Color.fromRGBO(0, 0, 0, 1)),
               ),
-              const SizedBox(height: 300),
-              TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/Register');
-                },
-                style: const ButtonStyle(
-                  minimumSize: WidgetStatePropertyAll(Size(200, 20)),
+              const SizedBox(height: 200),
+              Container(
+                 width: 280,
+                                height: 60,
+                                    decoration: BoxDecoration(
+                                  color:  Color.fromRGBO(250, 169, 19, 1),
+                                  borderRadius: BorderRadius.circular(7.0),
+                                  border :Border.all(color :  Colors.black)
+                                ),
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/Register');
+                  },
+                  style: ButtonStyle(
+                    
                     backgroundColor: MaterialStatePropertyAll<Color>(
-                        Color.fromRGBO(138, 19, 16, 1))),
-                child: const Text(
-                  "REGISTER",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 40,
-                      color: Colors.white),
-                  textAlign: TextAlign.left,
-                ),
-              ),
-              const SizedBox(height: 80),
-              TextButton(
-                onPressed: () {
-                  
-                  Navigator.pushNamed(context, '/Login');
-                },
-                style: const ButtonStyle(
-                  minimumSize: WidgetStatePropertyAll(Size(200, 20)),
-
-                  backgroundColor: MaterialStatePropertyAll<Color>(
-                    Color.fromRGBO(138, 19, 16, 1),
+                          Color.fromRGBO(250, 169, 19, 1)),
+                    
+                   
+                    ),
+                    
+                    
+                  child: const Text(
+                    "Register",
+                    style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: 30,
+                        color: Colors.black),
+                    textAlign: TextAlign.left,
                   ),
                 ),
-                child: const Text(
-                  "LOGIN",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 40,
-                      color: Colors.white),
-                  textAlign: TextAlign.left,
+              ),
+              const SizedBox(height: 20),
+              Container(
+                 width: 280,
+                                height: 60,
+                                    decoration: BoxDecoration(
+                                  color:  Color.fromRGBO(250, 169, 19, 1),
+                                  borderRadius: BorderRadius.circular(7.0),
+                                  border :Border.all(color :  Colors.black)
+                                ),
+                child: TextButton(
+                  onPressed: () {
+                    
+                    Navigator.pushNamed(context, '/Login');
+                  },
+                  style: ButtonStyle(
+                    
+                
+                    backgroundColor: MaterialStatePropertyAll<Color>(
+                      Color.fromRGBO(250, 169, 19, 1),
+                    ),
+                    
+                  ),
+                  child: const Text(
+                    "Login",
+                    style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: 30,
+                        color: Colors.black),
+                    textAlign: TextAlign.left,
+                  ),
                 ),
               )
             ],
