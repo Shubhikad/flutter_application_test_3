@@ -22,7 +22,7 @@ void main() async {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const AlertView(),
+      home: const HomePage(),
       routes: {
         '/Login': (context) => const LoginView(),
         '/Register': (context) => const RegisterView(),
@@ -32,7 +32,7 @@ void main() async {
         '/PreView': (context) => const PreView(),
         '/ErrorEmailView': (context) => const ErrorEmailView(),
         '/ErrorPasswordView': (context) => const ErrorPasswordView(),
-         '/InvalidEmail': (context) => const InvalidEmail(),
+        '/InvalidEmail': (context) => const InvalidEmail(),
         
       }));
 }

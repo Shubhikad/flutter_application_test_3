@@ -15,10 +15,7 @@ import 'package:flutter_application_test_3/views/register_view.dart';
         child: Column(
           children: [
             DrawerHeader(
-              child: Icon(
-                Icons.circle,
-                size: 48,
-                )
+              child: Image.asset("lib/images/Aditya Birla Logo.png"),
               ),
             ListTile(
               leading: Icon(Icons.home),
