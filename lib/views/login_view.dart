@@ -102,6 +102,7 @@ class _LoginViewState extends State<LoginView> {
                                   autocorrect: false,
                                   keyboardType: TextInputType.emailAddress,
                                   decoration: const InputDecoration(
+                                    suffixIcon: Icon(Icons.email),
                                     border: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         width: 20.0,
@@ -137,6 +138,7 @@ class _LoginViewState extends State<LoginView> {
                                   enableSuggestions: false,
                                   autocorrect: false,
                                   decoration: const InputDecoration(
+                                    suffixIcon: Icon(Icons.key),
                                     border: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         width: 20.0,

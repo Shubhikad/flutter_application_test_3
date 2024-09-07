@@ -104,7 +104,7 @@ class _RegisterViewState extends State<RegisterView> {
                                   child: Row(
                                     children: [
                                       SizedBox(
-                                        width: 30,
+                                        width: 20,
                                       ),
                                       Container(
                                         child: TextButton(
@@ -210,6 +210,7 @@ class _RegisterViewState extends State<RegisterView> {
                                   child: TextField(
                                     controller: _username,
                                     decoration: InputDecoration(
+                                      suffixIcon: Icon(Icons.abc),
                                       border: OutlineInputBorder(),
                                       filled: true,
                                       fillColor: Colors.white,
@@ -229,6 +230,7 @@ class _RegisterViewState extends State<RegisterView> {
                                     autocorrect: false,
                                     keyboardType: TextInputType.emailAddress,
                                     decoration: const InputDecoration(
+                                      suffixIcon: Icon(Icons.email),
                                       border: OutlineInputBorder(),
                                       filled: true,
                                       fillColor: Colors.white,
@@ -247,6 +249,7 @@ class _RegisterViewState extends State<RegisterView> {
                                     enableSuggestions: false,
                                     autocorrect: false,
                                     decoration: const InputDecoration(
+                                      suffixIcon: Icon(Icons.key),
                                       border: OutlineInputBorder(),
                                       filled: true,
                                       fillColor: Colors.white,
@@ -263,6 +266,7 @@ class _RegisterViewState extends State<RegisterView> {
                                     child: TextField(
                                       controller: _grade,
                                       decoration: InputDecoration(
+                                        suffixIcon: Icon(Icons.numbers),
                                         border: OutlineInputBorder(),
                                         filled: true,
                                         fillColor: Colors.white,
@@ -279,6 +283,7 @@ class _RegisterViewState extends State<RegisterView> {
                                     child: TextField(
                                       controller: _parentname,
                                       decoration: InputDecoration(
+                                        suffixIcon: Icon(Icons.abc),
                                         border: OutlineInputBorder(),
                                         filled: true,
                                         fillColor: Colors.white,
@@ -295,6 +300,7 @@ class _RegisterViewState extends State<RegisterView> {
                                     child: TextField(
                                       controller: _parentcontact,
                                       decoration: InputDecoration(
+                                        suffixIcon: Icon(Icons.phone),
                                         border: OutlineInputBorder(),
                                         filled: true,
                                         fillColor: Colors.white,

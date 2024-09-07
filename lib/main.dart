@@ -22,7 +22,7 @@ void main() async {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: const AlertView(),
       routes: {
         '/Login': (context) => const LoginView(),
         '/Register': (context) => const RegisterView(),
