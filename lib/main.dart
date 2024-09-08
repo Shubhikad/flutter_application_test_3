@@ -9,8 +9,10 @@ import 'package:flutter_application_test_3/views/main_page.dart';
 import 'package:flutter_application_test_3/views/pre_view.dart';
 import 'package:flutter_application_test_3/views/profile_view.dart';
 import 'package:flutter_application_test_3/views/register_view.dart';
+import 'package:flutter_application_test_3/views/reporting_form.dart';
+import 'package:flutter_application_test_3/views/reporting_form1.dart';
 import 'package:flutter_application_test_3/views/verify_email.dart';
-
+import 'package:provider/provider.dart';
 
 
 void main() async {
@@ -33,7 +35,10 @@ void main() async {
         '/ErrorEmailView': (context) => const ErrorEmailView(),
         '/ErrorPasswordView': (context) => const ErrorPasswordView(),
         '/InvalidEmail': (context) => const InvalidEmail(),
-        
+        //'/AboutBullying': (context) => const AboutBullyingView(),
+        '/ReportingFormView': (context) => const ReportingFormView(),
+        //'AntibullyingSquadView': (context) => const AntibullyingSquadView(),
+        '/AlertView': (context) => const AlertView(),
       }));
 }
 
