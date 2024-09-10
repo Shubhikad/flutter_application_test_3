@@ -15,12 +15,16 @@ class _LoginViewState extends State<LoginView> {
   //initialise textfield variables
   late final TextEditingController _email;
   late final TextEditingController _password;
+  late Future _initapp;
 
   @override
   void initState() {
     //create
     _email = TextEditingController();
     _password = TextEditingController();
+    _initapp = Firebase.initializeApp(
+                options: DefaultFirebaseOptions.currentPlatform,
+              );
     super.initState();
   }
 
@@ -60,12 +64,11 @@ class _LoginViewState extends State<LoginView> {
             Image.asset("lib/images/Group 6.png"),
 
             FutureBuilder(
-              future: Firebase.initializeApp(
-                options: DefaultFirebaseOptions.currentPlatform,
-              ),
+              future: _initapp,
               builder: (context, snapshot) {
                 switch (snapshot.connectionState) {//check for connection
                   case ConnectionState.done:
+                  // case ConnectionState.waiting:
                     return Center(
                       child: Column(
                         children: [
@@ -170,14 +173,15 @@ class _LoginViewState extends State<LoginView> {
 
                                         print(userCredential);
                                       } on FirebaseAuthException catch (e) {
+                                        var error = false;
                                         if (e.code == 'invalid-email') {
                                           print('invalid email');
                                         } else if (e.code ==
                                             'email-already-in-use')
                                           print('wrong password');
                                       }
-                                      ;
-                                      Navigator.pushNamed(context, '/MainPage');
+                                      
+                                      Navigator.pushNamed(context, '/HomePage');
                                     },
                                     child: const Text(
                                       "LOGIN",

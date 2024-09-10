@@ -263,118 +263,125 @@ class _RegisterViewState extends State<RegisterView> {
                                     ), //InputDecoration
                                   ),//TextField
                                 ),//Container
-                                Column(children: [
-                                const SizedBox(height:5),  
-                                  Container(
-                                    height: 50,
-                                    width: 280,
-                                    child: TextField(
-                                      controller: _grade,
-                                      decoration: const InputDecoration(
-                                        suffixIcon: Icon(Icons.numbers),
-                                        border: OutlineInputBorder(),
-                                        filled: true,
-                                        fillColor: Colors.white,
-                                        contentPadding: EdgeInsets.all(8.0),
-                                        hintText: 'Enter grade',
-                                      ), //InputDecoration
-                                    ),//TextField
-                                  ),//Container
-                                  
-                                  const SizedBox(height:5),
-                                  Container(
-                                    height: 50,
-                                    width: 280,
-                                    child: TextField(
-                                      controller: _parentname,
-                                      decoration: const InputDecoration(
-                                        suffixIcon: Icon(Icons.abc),
-                                        border: OutlineInputBorder(),
-                                        filled: true,
-                                        fillColor: Colors.white,
-                                        contentPadding: EdgeInsets.all(8.0),
-                                        hintText: 'Enter parent\'s name',
-                                      ), //InputDecoration
-                                    ),  //TextField
-                                  ),    //Container
-                                  
-                                  const SizedBox(height:5),
-                                  Container(
-                                    height: 50,
-                                    width: 280,
-                                    child: TextField(
-                                      controller: _parentcontact,
-                                      decoration: const InputDecoration(
-                                        suffixIcon: Icon(Icons.phone),
-                                        border: OutlineInputBorder(),
-                                        filled: true,
-                                        fillColor: Colors.white,
-                                        contentPadding: EdgeInsets.all(8.0),
-                                        hintText: 'Enter parent\s phone number',//required escape sequence
-                                      ),//InputDecoration
-                                    ),//TextField
-                                  ),//Container
-                                  const SizedBox(height: 20),
-                                  Container(
-                                    width: 280,
-                                height: 42,
-                                    decoration: BoxDecoration(
-                                  color:  const Color.fromRGBO(250, 169, 19, 1),
-                                  borderRadius: BorderRadius.circular(7.0),
-                                  border :Border.all(color :  Colors.black)
-                                ),//BoxDecoration
+                                Visibility(
+                                  visible : student,
+                                  child: Column(children: [
+                                  const SizedBox(height:5),  
+                                    Container(
+                                      height: 50,
+                                      width: 280,
+                                      child: TextField(
+                                        controller: _grade,
+                                        decoration: const InputDecoration(
+                                          suffixIcon: Icon(Icons.numbers),
+                                          border: OutlineInputBorder(),
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                          contentPadding: EdgeInsets.all(8.0),
+                                          hintText: 'Enter grade',
+                                        ), //InputDecoration
+                                      ),//TextField
+                                    ),//Container
+                                    
+                                    const SizedBox(height:5),
+                                    Container(
+                                      height: 50,
+                                      width: 280,
+                                      child: TextField(
+                                        controller: _parentname,
+                                        decoration: const InputDecoration(
+                                          suffixIcon: Icon(Icons.abc),
+                                          border: OutlineInputBorder(),
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                          contentPadding: EdgeInsets.all(8.0),
+                                          hintText: 'Enter parent\'s name',
+                                        ), //InputDecoration
+                                      ),  //TextField
+                                    ),    //Container
+                                    
+                                    const SizedBox(height:5),
 
-                                //submit user information to firebase
-                                    child: TextButton(
-                                      onPressed: () async {
-                                        final email = _email.text;
-                                        final password = _password.text;
-                                        try {
-                                          final userCredential = await FirebaseAuth
-                                              .instance
-                                              .createUserWithEmailAndPassword(
-                                            email: email,
-                                            password: password,
-                                          );
-                                              
-                                          FirebaseFirestore.instance
-                                              .collection("Users")
-                                              .doc(userCredential.user!.email)
-                                              .set({
-                                            'username': _username.text,
-                                            'grade': _grade.text,
-                                            'parentname': _parentname.text,
-                                            'parentcontact': _parentcontact.text,
-                                            'email': _email.text,
-                                            'password': _password.text,
-                                            'isStudent':student,
-                                            'isTeacher':teacher,
-                                            'isParent':parent,
-                                            // 'position': ,
-                                          });
-                                              
-                                          print(userCredential);
-                                        } on FirebaseAuthException catch (e) { 
-                                          print(e.code);
-                                        }
-                                        Navigator.pushNamed(context, '/HomePage');
-                                      },
-                                      style: const ButtonStyle(
-                                          backgroundColor:
-                                              MaterialStatePropertyAll<Color>(
-                                                  Color.fromRGBO(250, 169, 19, 1))),
-                                      child: const Text(
-                                        
-                                        'Register',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.normal,
-                                            fontSize: 20,
-                                            color: Color.fromARGB(255, 0, 0, 0)),
-                                        textAlign: TextAlign.left,
-                                      ),//Text
-                                    ),//TextButton
-                                  ),//Container
-                                ])//Column
+                                    Container(
+                                      height: 50,
+                                      width: 280,
+                                      child: TextField(
+                                        controller: _parentcontact,
+                                        decoration: const InputDecoration(
+                                          suffixIcon: Icon(Icons.phone),
+                                          border: OutlineInputBorder(),
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                          contentPadding: EdgeInsets.all(8.0),
+                                          hintText: 'Enter parent\s phone number',//required escape sequence
+                                        ),//InputDecoration
+                                      ),//TextField
+                                    ),//Container
+                                    const SizedBox(height: 20),
+                                    //Container
+                                  ]
+                                  ),//Column
+                                ),
+                                
+                                    Container(
+                                      width: 280,
+                                  height: 42,
+                                      decoration: BoxDecoration(
+                                    color:  const Color.fromRGBO(250, 169, 19, 1),
+                                    borderRadius: BorderRadius.circular(7.0),
+                                    border :Border.all(color :  Colors.black)
+                                  ),//BoxDecoration
+                                  
+                                  //submit user information to firebase
+                                      child: TextButton(
+                                        onPressed: () async {
+                                          final email = _email.text;
+                                          final password = _password.text;
+                                          try {
+                                            final userCredential = await FirebaseAuth
+                                                .instance
+                                                .createUserWithEmailAndPassword(
+                                              email: email,
+                                              password: password,
+                                            );
+                                                
+                                            FirebaseFirestore.instance
+                                                .collection("Users")
+                                                .doc(userCredential.user!.email)
+                                                .set({
+                                              'username': _username.text,
+                                              'grade': _grade.text,
+                                              'parentname': _parentname.text,
+                                              'parentcontact': _parentcontact.text,
+                                              'email': _email.text,
+                                              'password': _password.text,
+                                              'isStudent':student,
+                                              'isTeacher':teacher,
+                                              'isParent':parent,
+                                              // 'position': ,
+                                            });
+                                                
+                                            print(userCredential);
+                                          } on FirebaseAuthException catch (e) { 
+                                            print(e.code);
+                                          }
+                                          Navigator.pushNamed(context, '/HomePage');
+                                        },
+                                        style: const ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStatePropertyAll<Color>(
+                                                    Color.fromRGBO(250, 169, 19, 1))),
+                                        child: const Text(
+                                          
+                                          'Register',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.normal,
+                                              fontSize: 20,
+                                              color: Color.fromARGB(255, 0, 0, 0)),
+                                          textAlign: TextAlign.left,
+                                        ),//Text
+                                      ),//TextButton
+                                    ),
                               ],
                             ),//Column
                           ),//Container

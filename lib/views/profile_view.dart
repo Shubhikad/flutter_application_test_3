@@ -26,6 +26,7 @@ class _ProfileViewState extends State<ProfileView> {
             }));
   }
 
+
   @override
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
@@ -113,7 +114,12 @@ class _ProfileViewState extends State<ProfileView> {
                         SizedBox(
                           height: 10,
                         ),//SizedBox
-                        Container(
+                        
+                        Visibility(
+                          visible: userData['isStudent'],
+                          child: Column(
+                            children: [
+                              Container(
                           height: 50,
                           width: (300/androidWidth)*width,
                           decoration: BoxDecoration(
@@ -141,68 +147,71 @@ class _ProfileViewState extends State<ProfileView> {
                             ],
                           ),
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          height: 50,
-                          width: (300/androidWidth)*width,
-                          decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(7),
-                              border: Border.all(color: Colors.black)),//BoxDecortaion
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 6,
-                                child: Text(
-                                  //display name
-                                  '   ' + userData['parentname'],
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                  ),//TextStyle
-                                ),//Text
-                              ),//Expanded
-                              const Expanded(
-                                flex: 1,
-                                child: Icon(
-                                  Icons.abc,
-                                  size: 30,
-                                ),//Icon
-                              ),//ecpanded
-                            ],//Row
-                          ),
-                        ),//Container
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          height: 50,
-                          width: (300/androidWidth)*width,
-                          decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(7),
-                              border: Border.all(color: Colors.black)),//BorderDecoration
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 6,
-                                child: Text(
-                                  '   ' + userData['parentcontact'],
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                  ),//TexStyle
-                                ),//Text
-                              ),//Expanded
-                              const Expanded(
-                                flex: 1,
-                                child: Icon(
-                                  Icons.phone,
-                                  size: 30,
-                                ),//Icon
-                              ),//Expanded
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                height: 50,
+                                width: (300/androidWidth)*width,
+                                decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius: BorderRadius.circular(7),
+                                    border: Border.all(color: Colors.black)),//BoxDecortaion
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 6,
+                                      child: Text(
+                                        //display name
+                                        '   ' + userData['parentname'],
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                        ),//TextStyle
+                                      ),//Text
+                                    ),//Expanded
+                                    const Expanded(
+                                      flex: 1,
+                                      child: Icon(
+                                        Icons.abc,
+                                        size: 30,
+                                      ),//Icon
+                                    ),//ecpanded
+                                  ],//Row
+                                ),
+                              ),//Container
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                height: 50,
+                                width: (300/androidWidth)*width,
+                                decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius: BorderRadius.circular(7),
+                                    border: Border.all(color: Colors.black)),//BorderDecoration
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 6,
+                                      child: Text(
+                                        '   ' + userData['parentcontact'],
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                        ),//TexStyle
+                                      ),//Text
+                                    ),//Expanded
+                                    const Expanded(
+                                      flex: 1,
+                                      child: Icon(
+                                        Icons.phone,
+                                        size: 30,
+                                      ),//Icon
+                                    ),//Expanded
+                                  ],
+                                ),//Row
+                              ),
                             ],
-                          ),//Row
+                          ),
                         ),//Container
                       ],
                     ),//Column

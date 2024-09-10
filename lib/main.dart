@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_test_3/firebase_options.dart';
 import 'package:flutter_application_test_3/views/about_bullying.dart';
 import 'package:flutter_application_test_3/views/alert_view.dart';
+import 'package:flutter_application_test_3/views/form_view.dart';
 import 'package:flutter_application_test_3/views/login_view.dart';
 import 'package:flutter_application_test_3/views/main_page.dart';
 import 'package:flutter_application_test_3/views/pre_view.dart';
@@ -34,6 +35,7 @@ void main() async {
         '/ReportingFormView': (context) => const ReportingFormView(),
         '/AntibullyingSquadView': (context) => const AntibullyingSquadView(),
         '/AlertView': (context) => const AlertView(),
+        '/FormView': (context) => const FormView(),
       })); //MaterialApp
 }
 
