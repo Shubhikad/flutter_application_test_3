@@ -13,22 +13,14 @@ class ReportingFormView extends StatefulWidget {
 }
 
 class _ReportingFormViewState extends State<ReportingFormView> {
-  // List<String> docIds = [];
-  // final user = FirebaseAuth.instance.currentUser!;
-  //   Future getDocId() async {
-  //   await FirebaseFirestore.instance.collection('Users').get().then(
-  //   (snapshot)=>snapshot.docs.forEach((element){
-  //     print(element.reference);
-  //     docIds.add(element.reference.id);
-  //   }));
-  // }
+
 
 // variables to inlude in database
   var type = ""; // type of bullying (online/offline)
   var location =
       ""; // location (if offline: in school / bus / outside or if online instagram / whatsapp / snapchat / games / other)
-  var date = "";
-  var time = "";
+  String? date = "";
+  String? time = "";
 
   DateTime? dateTemp = DateTime.now(); // date of incident
   TimeOfDay? timeTemp = TimeOfDay.now(); // time of incident
@@ -220,13 +212,13 @@ class _ReportingFormViewState extends State<ReportingFormView> {
 
   void setDate() {
     setState(() {
-      date = dateTemp as String; // converts variable to string so can be stored
+      date = dateTemp?.toIso8601String(); // converts variable to string so can be stored
     });
   }
 
   void setTime() {
     setState(() {
-      time = timeTemp as String; // converts variable to string so can be stored
+      time = timeTemp?.format(context); // converts variable to string so can be stored
     });
   }
 
@@ -683,193 +675,195 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                                   ),
                                                 ),
                       
-                                                Row(
-                                                  // creates a row for the buttons
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: [
-                                                    IconButton(
-                                                      // icon button 1 - instagram
-                                                      onPressed: () {
-                                                        instagram(); // when pressed, carry out instagram function
-                                                      },
-                      
-                                                      icon: Container(
-                                                        // place icon in a container so border can be added
-                                                        width: 65.0
-                                                            .sp, // width = width of image + border
-                                                        height: 65.0
-                                                            .sp, // height = height of image + border
-                                                        decoration: BoxDecoration(
-                                                          border: Border.all(
-                                                            // constant border throughout
-                                                            color: instagramPressed
-                                                                ? Colors.white
-                                                                : Colors
-                                                                    .transparent, // when pressed, border becomes visible and white
-                                                            width: 3.0.sp,
+                                                SingleChildScrollView(
+                                                  child: Row(
+                                                    // creates a row for the buttons
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: [
+                                                      IconButton(
+                                                        // icon button 1 - instagram
+                                                        onPressed: () {
+                                                          instagram(); // when pressed, carry out instagram function
+                                                        },
+                                                                        
+                                                        icon: Container(
+                                                          // place icon in a container so border can be added
+                                                          width: 65.0
+                                                              .sp, // width = width of image + border
+                                                          height: 65.0
+                                                              .sp, // height = height of image + border
+                                                          decoration: BoxDecoration(
+                                                            border: Border.all(
+                                                              // constant border throughout
+                                                              color: instagramPressed
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .transparent, // when pressed, border becomes visible and white
+                                                              width: 3.0.sp,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius.circular(
+                                                                    12.0), // most apps are rounded squares
                                                           ),
-                                                          borderRadius:
-                                                              BorderRadius.circular(
-                                                                  12.0), // most apps are rounded squares
-                                                        ),
-                      
-                                                        child: Image.asset(
-                                                          // place image as the child of the container
-                                                          'lib/images/instagram_logo.png', // access image from lib/images folder
-                                                          width: 50.0.sp,
-                                                          height: 50.0.sp,
-                                                          fit: BoxFit
-                                                              .contain, // contain image
+                                                                        
+                                                          child: Image.asset(
+                                                            // place image as the child of the container
+                                                            'lib/images/instagram_logo.png', // access image from lib/images folder
+                                                            width: 50.0.sp,
+                                                            height: 50.0.sp,
+                                                            fit: BoxFit
+                                                                .contain, // contain image
+                                                          ),
                                                         ),
                                                       ),
-                                                    ),
-                                                    IconButton(
-                                                      // icon button 2 - snapchat
-                                                      onPressed: () {
-                                                        snapchat(); // when pressed, carry out snapchat function
-                                                      },
-                      
-                                                      icon: Container(
-                                                        // place icon in a container so border can be added
-                                                        width: 65.0
-                                                            .sp, // width = width of image + border
-                                                        height: 65.0
-                                                            .sp, // height = height of image + border
-                                                        decoration: BoxDecoration(
-                                                          border: Border.all(
-                                                            // constant border throughout
-                                                            color: snapchatPressed
-                                                                ? Colors.white
-                                                                : Colors
-                                                                    .transparent, // when pressed, border becomes visible and white
-                                                            width: 3.0.sp,
+                                                      IconButton(
+                                                        // icon button 2 - snapchat
+                                                        onPressed: () {
+                                                          snapchat(); // when pressed, carry out snapchat function
+                                                        },
+                                                                        
+                                                        icon: Container(
+                                                          // place icon in a container so border can be added
+                                                          width: 65.0
+                                                              .sp, // width = width of image + border
+                                                          height: 65.0
+                                                              .sp, // height = height of image + border
+                                                          decoration: BoxDecoration(
+                                                            border: Border.all(
+                                                              // constant border throughout
+                                                              color: snapchatPressed
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .transparent, // when pressed, border becomes visible and white
+                                                              width: 3.0.sp,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius.circular(
+                                                                    16.0), // most apps are rounded squares
                                                           ),
-                                                          borderRadius:
-                                                              BorderRadius.circular(
-                                                                  16.0), // most apps are rounded squares
-                                                        ),
-                      
-                                                        child: Image.asset(
-                                                          // place image as the child of the container
-                                                          'lib/images/snapchat_logo.png', // access image from lib/images folder
-                                                          width: 60.0.sp,
-                                                          height: 60.0.sp,
-                                                          fit: BoxFit
-                                                              .contain, // contain image
+                                                                        
+                                                          child: Image.asset(
+                                                            // place image as the child of the container
+                                                            'lib/images/snapchat_logo.png', // access image from lib/images folder
+                                                            width: 60.0.sp,
+                                                            height: 60.0.sp,
+                                                            fit: BoxFit
+                                                                .contain, // contain image
+                                                          ),
                                                         ),
                                                       ),
-                                                    ),
-                                                    IconButton(
-                                                      // icon button 3 - whatsapp
-                                                      onPressed: () {
-                                                        whatsapp(); // when pressed, carry out whatsapp function
-                                                      },
-                      
-                                                      icon: Container(
-                                                        // place icon in a container so border can be added
-                                                        width: 65.0
-                                                            .sp, // width = width of image + border
-                                                        height: 65.0
-                                                            .sp, // height = height of image + border
-                                                        decoration: BoxDecoration(
-                                                          border: Border.all(
-                                                            // constant border throughout
-                                                            color: whatsappPressed
-                                                                ? Colors.white
-                                                                : Colors
-                                                                    .transparent, // when pressed, border becomes visible and white
-                                                            width: 3.0.sp,
+                                                      IconButton(
+                                                        // icon button 3 - whatsapp
+                                                        onPressed: () {
+                                                          whatsapp(); // when pressed, carry out whatsapp function
+                                                        },
+                                                                        
+                                                        icon: Container(
+                                                          // place icon in a container so border can be added
+                                                          width: 65.0
+                                                              .sp, // width = width of image + border
+                                                          height: 65.0
+                                                              .sp, // height = height of image + border
+                                                          decoration: BoxDecoration(
+                                                            border: Border.all(
+                                                              // constant border throughout
+                                                              color: whatsappPressed
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .transparent, // when pressed, border becomes visible and white
+                                                              width: 3.0.sp,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius.circular(
+                                                                    16.0), // most apps are rounded squares
                                                           ),
-                                                          borderRadius:
-                                                              BorderRadius.circular(
-                                                                  16.0), // most apps are rounded squares
-                                                        ),
-                      
-                                                        child: Image.asset(
-                                                          // place image as the child of the container
-                                                          'lib/images/whatsapp_logo.png', // access image from lib/images folder
-                                                          width: 50.0.sp,
-                                                          height: 50.0.sp,
-                                                          fit: BoxFit
-                                                              .contain, // contain image
+                                                                        
+                                                          child: Image.asset(
+                                                            // place image as the child of the container
+                                                            'lib/images/whatsapp_logo.png', // access image from lib/images folder
+                                                            width: 50.0.sp,
+                                                            height: 50.0.sp,
+                                                            fit: BoxFit
+                                                                .contain, // contain image
+                                                          ),
                                                         ),
                                                       ),
-                                                    ),
-                                                    IconButton(
-                                                      // icon button 4 - games (refers to any kind of online games)
-                                                      onPressed: () {
-                                                        games(); // when pressed, carry out games function
-                                                      },
-                      
-                                                      icon: Container(
-                                                        // place icon in a container so border can be added
-                                                        width: 65.0
-                                                            .sp, // width = width of image + border
-                                                        height: 65.0
-                                                            .sp, // height = height of image + border
-                                                        decoration: BoxDecoration(
-                                                          border: Border.all(
-                                                            // constant border throughout
-                                                            color: gamesPressed
-                                                                ? Colors.white
-                                                                : Colors
-                                                                    .transparent, // when pressed, border becomes visible and white
-                                                            width: 3.0,
+                                                      IconButton(
+                                                        // icon button 4 - games (refers to any kind of online games)
+                                                        onPressed: () {
+                                                          games(); // when pressed, carry out games function
+                                                        },
+                                                                        
+                                                        icon: Container(
+                                                          // place icon in a container so border can be added
+                                                          width: 65.0
+                                                              .sp, // width = width of image + border
+                                                          height: 65.0
+                                                              .sp, // height = height of image + border
+                                                          decoration: BoxDecoration(
+                                                            border: Border.all(
+                                                              // constant border throughout
+                                                              color: gamesPressed
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .transparent, // when pressed, border becomes visible and white
+                                                              width: 3.0,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius.circular(
+                                                                    16.0), // most apps are rounded squares
                                                           ),
-                                                          borderRadius:
-                                                              BorderRadius.circular(
-                                                                  16.0), // most apps are rounded squares
-                                                        ),
-                      
-                                                        child: Image.asset(
-                                                          // place image as the child of the container
-                                                          'lib/images/games_logo.png', // access image from lib/images folder
-                                                          width: 50.0.sp,
-                                                          height: 50.0.sp,
-                                                          fit: BoxFit
-                                                              .contain, // contain image
+                                                                        
+                                                          child: Image.asset(
+                                                            // place image as the child of the container
+                                                            'lib/images/games_logo.png', // access image from lib/images folder
+                                                            width: 50.0.sp,
+                                                            height: 50.0.sp,
+                                                            fit: BoxFit
+                                                                .contain, // contain image
+                                                          ),
                                                         ),
                                                       ),
-                                                    ),
-                                                    IconButton(
-                                                      // icon button 5 - other
-                                                      onPressed: () {
-                                                        other(); // when pressed, carry out other function
-                                                      },
-                      
-                                                      icon: Container(
-                                                        // place icon in a container so border can be added
-                                                        width: 65.0
-                                                            .sp, // width = width of image + border
-                                                        height: 65.0
-                                                            .sp, // height = height of image + border
-                                                        decoration: BoxDecoration(
-                                                          border: Border.all(
-                                                            // constant border throughout
-                                                            color: otherPressed
-                                                                ? Colors.white
-                                                                : Colors
-                                                                    .transparent, // when pressed, border becomes visible and white
-                                                            width: 3.0,
+                                                      IconButton(
+                                                        // icon button 5 - other
+                                                        onPressed: () {
+                                                          other(); // when pressed, carry out other function
+                                                        },
+                                                                        
+                                                        icon: Container(
+                                                          // place icon in a container so border can be added
+                                                          width: 65.0
+                                                              .sp, // width = width of image + border
+                                                          height: 65.0
+                                                              .sp, // height = height of image + border
+                                                          decoration: BoxDecoration(
+                                                            border: Border.all(
+                                                              // constant border throughout
+                                                              color: otherPressed
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .transparent, // when pressed, border becomes visible and white
+                                                              width: 3.0,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius.circular(
+                                                                    16.0), // most apps are rounded squares
                                                           ),
-                                                          borderRadius:
-                                                              BorderRadius.circular(
-                                                                  16.0), // most apps are rounded squares
-                                                        ),
-                      
-                                                        child: Image.asset(
-                                                          // place image as the child of the container
-                                                          'lib/images/other_logo.png', // access image from lib/images folder
-                                                          width: 50.0.sp,
-                                                          height: 50.0.sp,
-                                                          fit: BoxFit
-                                                              .contain, // contain image
+                                                                        
+                                                          child: Image.asset(
+                                                            // place image as the child of the container
+                                                            'lib/images/other_logo.png', // access image from lib/images folder
+                                                            width: 50.0.sp,
+                                                            height: 50.0.sp,
+                                                            fit: BoxFit
+                                                                .contain, // contain image
+                                                          ),
                                                         ),
                                                       ),
-                                                    ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -888,8 +882,11 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                                 MainAxisAlignment.spaceEvenly,
                                             children: [
                                               ElevatedButton( // date picker
-                                                onPressed: () =>
-                                                    date_picker(context),
+                                                onPressed: () {
+                                                    date_picker(context);
+                                                    setDate();
+                                                },
+                                                    
                                                 style: ElevatedButton.styleFrom(
                                                   backgroundColor: dateChosen
                                                       ? Color(0xFFF2BE0F)
@@ -908,8 +905,9 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                                 ),
                                               ),
                                               ElevatedButton( // time picker
-                                                onPressed: () =>
-                                                    time_picker(context),
+                                                onPressed: () {
+                                                    time_picker(context);
+                                                    setTime();},
                                                 style: ElevatedButton.styleFrom(
                                                   backgroundColor: timeChosen
                                                       ? Color(0xFFF2BE0F)
@@ -1820,7 +1818,9 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                 },
               );
             default:
-              return const Text('Loading...'); // backup
+              return const Text(
+                'Loading...'
+                ); // backup
           }
         });
   }

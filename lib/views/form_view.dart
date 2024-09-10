@@ -19,29 +19,32 @@ class _FormViewState extends State<FormView> {
       FirebaseFirestore.instance.collection('ReportingForm');
   Stream<QuerySnapshot> getFormsStream() {
     final formsStream = forms.snapshots();
-
+    var password_is_correct = false;
     return formsStream;
   }
-  // List<String> docIds = [];
-  // final user = FirebaseAuth.instance.currentUser!;
-  // Future getDocId() async {
-  //   await FirebaseFirestore.instance
-  //       .collection('Users')
-  //       .get()
-  //       .then((snapshot) => snapshot.docs.forEach((element) {
-  //             print(element.reference);
-  //             docIds.add(element.reference.id);
-  //           }));
-  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //hide appbar
-      extendBodyBehindAppBar: true,
+      extendBodyBehindAppBar: false,
       appBar: AppBar(
           foregroundColor: const Color.fromARGB(255, 0, 0, 0),
-          backgroundColor: Colors.transparent),
+          backgroundColor: Colors.transparent,
+          title: Text('Form Responses',
+          style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 18,),),
+          leading: new IconButton(
+            onPressed: (){
+              
+              Navigator.pushNamed(context, '/MainPage');
+              
+
+            }, 
+            icon: new Icon(Icons.arrow_back, color: Colors.black),
+),
+      ),
+
 
       body: StreamBuilder<QuerySnapshot>(
         stream: getFormsStream(),
@@ -67,7 +70,7 @@ class _FormViewState extends State<FormView> {
                         height: 300,
                           width: 300,
                           decoration: BoxDecoration(
-                              color: Colors.transparent,
+                              color: Colors.white,
                               borderRadius: BorderRadius.circular(7),
                               border: Border.all(color: Colors.black)),//BoxDecoration
                           padding: EdgeInsets.all(8.0),
@@ -83,7 +86,7 @@ class _FormViewState extends State<FormView> {
                             ),
                             // textAlign: TextAlign.left  ,
                             ),
-                            Text('time: ' + data['date'],
+                            Text('time: ' + data['time'],
                           style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 18,
