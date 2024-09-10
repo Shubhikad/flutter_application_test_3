@@ -1,14 +1,11 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'dart:async';
-
+//import packages
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test_3/firebase_options.dart';
-import 'package:flutter_application_test_3/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+//register a new user
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
 
@@ -17,6 +14,7 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
+  //initialise variables
   late final TextEditingController _email;
   late final TextEditingController _password;
   late final TextEditingController _username;
@@ -41,6 +39,7 @@ class _RegisterViewState extends State<RegisterView> {
 
   @override
   void dispose() {
+    //dispose variables after use
     _email.dispose();
     _password.dispose();
     _username.dispose();
@@ -53,6 +52,7 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //hide app bar
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         centerTitle: true,
@@ -66,20 +66,25 @@ class _RegisterViewState extends State<RegisterView> {
         elevation: 2.0,
         //title: const Text('Register'),
       ),
+      //make scrollable when text fields are used
       body: SingleChildScrollView(
         child: Stack(
           children: [
+            //background image
             Image.asset("lib/images/Group 6.png"),
             FutureBuilder(
+              //inistialise firebase
               future: Firebase.initializeApp(
                 options: DefaultFirebaseOptions.currentPlatform,
               ),
               builder: (context, snapshot) {
                 switch (snapshot.connectionState) {
+                  //check for connection
                   case ConnectionState.done:
                     return Center(
                       child: Column(
                         children: [
+                          //create layout
                           const SizedBox(height: 140),
                           Container(
                             height: 550,
@@ -90,20 +95,20 @@ class _RegisterViewState extends State<RegisterView> {
                             ),
                             child: Column(
                               children: [
-                                SizedBox(height:20),
-                                Text('Hello!',
+                                const SizedBox(height:20),
+                                const Text('Hello!',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 40,
-                                    color: const Color.fromARGB(255, 0, 0, 0)),
+                                    color: Color.fromARGB(255, 0, 0, 0)),
                                 
-                                ),
-                                
+                                ),//Text
+                                //check if student or teacher 
                                 SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
                                     children: [
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 20,
                                       ),
                                       Container(
@@ -120,10 +125,10 @@ class _RegisterViewState extends State<RegisterView> {
                                             width: 100,
                                             decoration: BoxDecoration(
                                               color: student
-                                                  ? Color.fromRGBO(
+                                                  ? const Color.fromRGBO(
                                                       250, 169, 19, 1)
-                                                  : Color.fromRGBO(1, 2, 3, 0),
-                                              border: Border(
+                                                  : const Color.fromRGBO(1, 2, 3, 0),
+                                              border: const Border(
                                                 top: BorderSide(
                                                     color: Color.fromARGB(255, 0, 0, 0)),
                                                 left: BorderSide(
@@ -132,24 +137,24 @@ class _RegisterViewState extends State<RegisterView> {
                                                     color: Color.fromARGB(255, 0, 0, 0)),
                                                 bottom: BorderSide(
                                                     color: Color.fromARGB(255, 0, 0, 0)),
-                                              ),
+                                              ),//Border
                                               borderRadius:
                                                   BorderRadius.circular(10),
-                                            ),
-                                            child: Center(
+                                            ),//BoxDecoration
+                                            child: const Center(
                                               child: Text(
                                                 'STUDENT',
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 15,
-                                                    color: const Color.fromARGB(255, 0, 0, 0)),
+                                                    color: Color.fromARGB(255, 0, 0, 0)),
                                                 textAlign: TextAlign.left,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(width:10),
+                                              ),//Text
+                                            ),//Center
+                                          ),//Container
+                                        ),//TextButton
+                                      ),//Container
+                                      const SizedBox(width:10),
                                       Container(
                                         child: TextButton(
                                           onPressed: () {
@@ -164,10 +169,10 @@ class _RegisterViewState extends State<RegisterView> {
                                             width: 100,
                                             decoration: BoxDecoration(
                                               color: teacher
-                                                  ? Color.fromRGBO(
+                                                  ? const Color.fromRGBO(
                                                       250, 169, 19, 1)
-                                                  : Color.fromRGBO(1, 2, 3, 0),
-                                              border: Border(
+                                                  : const Color.fromRGBO(1, 2, 3, 0),
+                                              border: const Border(
                                                 top: BorderSide(
                                                     color: Color.fromARGB(255, 0, 0, 0)),
                                                 left: BorderSide(
@@ -176,34 +181,34 @@ class _RegisterViewState extends State<RegisterView> {
                                                     color: Color.fromARGB(255, 0, 0, 0)),
                                                 bottom: BorderSide(
                                                     color: Color.fromARGB(255, 0, 0, 0)),
-                                              ),
+                                              ),//Border
                                               borderRadius:
                                                   BorderRadius.circular(10),
-                                            ),
+                                            ),//BoxDecoration
                                             
-                                            child: Center(
+                                            child: const Center(
                                               child: Text(
                                                 'TEACHER',
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 15,
-                                                    color: const Color.fromARGB(255, 0, 0, 0)),
+                                                    color: Color.fromARGB(255, 0, 0, 0)),
                                                 textAlign: TextAlign.left,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
+                                              ),//Text
+                                            ),//Center
+                                          ),//Container
+                                        ),//TextBox
+                                      ),//Container
                                       SizedBox(
                                         width: 20,
                                       ),
                                       
                                     ],
-                                  ),
-                                ),
+                                  ),//Row
+                                ),//SingleChildScrollView
                                 
                                 
-                                
+                               //textfields using user's information for firebase 
                                 Container(
                                   height: 50,
                                   width: 280,
@@ -216,9 +221,9 @@ class _RegisterViewState extends State<RegisterView> {
                                       fillColor: Colors.white,
                                       contentPadding: EdgeInsets.all(8.0),
                                       hintText: 'Enter name',
-                                    ),
-                                  ),
-                                ),
+                                    ), //InputDecoration
+                                  ),//TextField
+                                ),//Container
                                 SizedBox(height:5),
                                 
                                 Container(
@@ -236,10 +241,10 @@ class _RegisterViewState extends State<RegisterView> {
                                       fillColor: Colors.white,
                                       contentPadding: EdgeInsets.all(8.0),
                                       hintText: 'Enter email',
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(height:5),
+                                    ), //InputDecoration
+                                  ),//TextField
+                                ),//Container
+                                const SizedBox(height:5),
                                 Container(
                                   height: 50,
                                   width: 280,
@@ -255,69 +260,71 @@ class _RegisterViewState extends State<RegisterView> {
                                       fillColor: Colors.white,
                                       contentPadding: EdgeInsets.all(8.0),
                                       hintText: 'Enter password',
-                                    ),
-                                  ),
-                                ),
+                                    ), //InputDecoration
+                                  ),//TextField
+                                ),//Container
                                 Column(children: [
-                                SizedBox(height:5),  
+                                const SizedBox(height:5),  
                                   Container(
                                     height: 50,
                                     width: 280,
                                     child: TextField(
                                       controller: _grade,
-                                      decoration: InputDecoration(
+                                      decoration: const InputDecoration(
                                         suffixIcon: Icon(Icons.numbers),
                                         border: OutlineInputBorder(),
                                         filled: true,
                                         fillColor: Colors.white,
                                         contentPadding: EdgeInsets.all(8.0),
                                         hintText: 'Enter grade',
-                                      ),
-                                    ),
-                                  ),
+                                      ), //InputDecoration
+                                    ),//TextField
+                                  ),//Container
                                   
-                                  SizedBox(height:5),
+                                  const SizedBox(height:5),
                                   Container(
                                     height: 50,
                                     width: 280,
                                     child: TextField(
                                       controller: _parentname,
-                                      decoration: InputDecoration(
+                                      decoration: const InputDecoration(
                                         suffixIcon: Icon(Icons.abc),
                                         border: OutlineInputBorder(),
                                         filled: true,
                                         fillColor: Colors.white,
                                         contentPadding: EdgeInsets.all(8.0),
                                         hintText: 'Enter parent\'s name',
-                                      ),
-                                    ),
-                                  ),
+                                      ), //InputDecoration
+                                    ),  //TextField
+                                  ),    //Container
                                   
-                                  SizedBox(height:5),
+                                  const SizedBox(height:5),
                                   Container(
                                     height: 50,
                                     width: 280,
                                     child: TextField(
                                       controller: _parentcontact,
-                                      decoration: InputDecoration(
+                                      decoration: const InputDecoration(
                                         suffixIcon: Icon(Icons.phone),
                                         border: OutlineInputBorder(),
                                         filled: true,
                                         fillColor: Colors.white,
                                         contentPadding: EdgeInsets.all(8.0),
-                                        hintText: 'Enter parent\s phone number',
-                                      ),
-                                    ),
-                                  ),
+                                        hintText: 'Enter parent\s phone number',//required escape sequence
+                                      ),//InputDecoration
+                                    ),//TextField
+                                  ),//Container
                                   const SizedBox(height: 20),
                                   Container(
                                     width: 280,
                                 height: 42,
                                     decoration: BoxDecoration(
-                                  color:  Color.fromRGBO(250, 169, 19, 1),
+                                  color:  const Color.fromRGBO(250, 169, 19, 1),
                                   borderRadius: BorderRadius.circular(7.0),
                                   border :Border.all(color :  Colors.black)
-                                ),
+                                ),//BoxDecoration
+
+                                //submit user information to firebase
                                     child: TextButton(
                                       onPressed: () async {
                                         final email = _email.text;
@@ -347,29 +354,10 @@ class _RegisterViewState extends State<RegisterView> {
                                           });
                                               
                                           print(userCredential);
-                                        } on FirebaseAuthException catch (e) {
-                                          
+                                        } on FirebaseAuthException catch (e) { 
                                           print(e.code);
-                                          if (e.code == 'weak-password') {
-                                          // await FirebaseAuth.instance.currentUser!.delete();
-                                          // FirebaseAuth.instance.signOut();
-                                          } else if (e.code ==
-                                              'email-already-in-use') {
-                                            // Navigator.pushNamed(context, '/ErrorEmailView');
-                                          } else if (e.code == 'invalid-email') {
-                                            // Navigator.pushNamed(context, '/InvalidEmail');
-                                          }
-                                              
-                                          
-                                              
-                                          // Navigator.pushNamed(context, '/HomePage');
                                         }
                                         Navigator.pushNamed(context, '/HomePage');
-                                        // await FirebaseAuth.instance.currentUser?.updateDisplayName(_username.text);
-                                        // await FirebaseAuth.instance.currentUser?.updateDisplayName(_username.text);
-                                        // await FirebaseAuth.instance.currentUser?.updateDisplayName(_username.text);
-                                        // await FirebaseAuth.instance.currentUser?.updateDisplayName(_username.text);
-                                        // await FirebaseAuth.instance.currentUser?.updateDisplayName(_username.text);
                                       },
                                       style: const ButtonStyle(
                                           backgroundColor:
@@ -383,24 +371,24 @@ class _RegisterViewState extends State<RegisterView> {
                                             fontSize: 20,
                                             color: Color.fromARGB(255, 0, 0, 0)),
                                         textAlign: TextAlign.left,
-                                      ),
-                                    ),
-                                  ),
-                                ])
+                                      ),//Text
+                                    ),//TextButton
+                                  ),//Container
+                                ])//Column
                               ],
-                            ),
-                          ),
+                            ),//Column
+                          ),//Container
                         ],
-                      ),
-                    );
+                      ),//Column
+                    );//Center
                   
                   default:
                     return const Text('Loading...');
                 }
-              }),
+              }),//FutureBuilder
           ],
-        ),
-      ),
-    );
+        ),//Stack
+      ),//SingleChildScrollView
+    );//Scaffold
   }
 }

@@ -2,10 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_test_3/firebase_options.dart';
-import 'package:flutter_application_test_3/views/register_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AlertView extends StatefulWidget {
@@ -31,6 +28,11 @@ class _AlertViewState extends State<AlertView> {
   
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
+    final double height = screenSize.height;
+    final double width = screenSize.width;
+    double androidHeight = 800.0;
+    double androidWidth = 360.0;
     return Scaffold(
         backgroundColor:  Colors.white,
         extendBodyBehindAppBar: true,
@@ -62,20 +64,20 @@ class _AlertViewState extends State<AlertView> {
                         child: Column(
                         children: [
                           SizedBox(
-                            height:  110,
+                            height:  (110/androidHeight)*height,
                           ),
                           Image.asset("lib/images/image 2.png"),
                           SizedBox(
-                            height:  40,
+                            height:  (40/androidHeight)*height,
                           ),
                           Row(
                             children: [
                               SizedBox(
-                                width:20
+                                width: (20/androidWidth)*width
                               ),
                               Container(
-                                height: 60,
-                                width:150,
+                                height: (60/androidHeight)*height,
+                                width: (150/androidWidth)*width,
                                 decoration: BoxDecoration(
                                           color : Color.fromRGBO(179, 25, 22, 1),
                                           borderRadius: BorderRadius.circular(20),
@@ -101,11 +103,11 @@ class _AlertViewState extends State<AlertView> {
                                   ),
                               ),
                               SizedBox(
-                                width:  20,
+                                width:  (20/androidWidth)*width,
                               ),
                               Container(
-                                height: 60,
-                                width:150,
+                                height: (60/androidHeight)*height,
+                                width: (150/androidWidth)*width,
                                 
                                 decoration: BoxDecoration(
                                           color : Color.fromRGBO(179, 25, 22, 1),
@@ -114,7 +116,15 @@ class _AlertViewState extends State<AlertView> {
                                           
                                         ),
                                 child: TextButton(
-                                  onPressed: (){}, 
+                                  onPressed: (){
+                                    
+                                    launch('sms:9819215900?body=I am in distress and require immediate assistance');
+                                    // final _call = 'tel:$_phoneNumber';
+                                    // if(await canLaunch(_call)){
+                                    //   await launch(_call);
+                                    // }
+                                  
+                                  }, 
                                   child: Text(
                                     'Teacher',
                                     style: TextStyle(
@@ -134,7 +144,7 @@ class _AlertViewState extends State<AlertView> {
                   ),
                   
                 ),
-                SizedBox(height: 40,),
+                SizedBox(height: (40/androidHeight)*height),
                 Text('Alert a teacher or a parent if you\'re in distress or need help',
                 style: TextStyle(
                                                 fontWeight: FontWeight.normal,
@@ -149,10 +159,10 @@ class _AlertViewState extends State<AlertView> {
                                                 color: Color.fromARGB(255, 0, 0, 0)),
                                                 textAlign: TextAlign.center,
                                                 ),
-                                                SizedBox(height: 20,),
+                                                SizedBox(height: (20/androidHeight)*height,),
                                                 Container(
-                                                  width: 200,
-                                                  height: 30,
+                                                  width: (200/androidWidth)*width,
+                                                  height: (30/androidHeight)*height,
                                                   decoration: BoxDecoration(
                                               color: Colors.transparent,
                                               border: Border.all(color :  Colors.black),
