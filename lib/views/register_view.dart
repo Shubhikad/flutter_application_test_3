@@ -1,6 +1,7 @@
 //import packages
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test_3/firebase_options.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -21,10 +22,11 @@ class _RegisterViewState extends State<RegisterView> {
   late final TextEditingController _grade;
   late final TextEditingController _parentname;
   late final TextEditingController _parentcontact;
+  late final TextEditingController _passkey;
 
   var student = false;
   var parent = false;
-  var teacher = false;
+  var admin = false;
 
   @override
   void initState() {
@@ -34,6 +36,7 @@ class _RegisterViewState extends State<RegisterView> {
     _grade = TextEditingController();
     _parentname = TextEditingController();
     _parentcontact = TextEditingController();
+    _passkey = TextEditingController();
     super.initState();
   }
 
@@ -46,6 +49,7 @@ class _RegisterViewState extends State<RegisterView> {
     _grade.dispose();
     _parentname.dispose();
     _parentcontact.dispose();
+    _passkey.dispose();
     super.dispose();
   }
 
@@ -103,7 +107,7 @@ class _RegisterViewState extends State<RegisterView> {
                                     color: Color.fromARGB(255, 0, 0, 0)),
                                 
                                 ),//Text
-                                //check if student or teacher 
+                                //check if student or admin 
                                 SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
@@ -117,7 +121,7 @@ class _RegisterViewState extends State<RegisterView> {
                                             setState(() {
                                               student = !student;
                                               parent = false;
-                                              teacher = false;
+                                              admin = false;
                                             });
                                           },
                                           child: Container(
@@ -161,14 +165,14 @@ class _RegisterViewState extends State<RegisterView> {
                                             setState(() {
                                               student = false;
                                               parent = false;
-                                              teacher = !teacher;
+                                              admin = !admin;
                                             });
                                           },
                                           child: Container(
                                             height: 35,
                                             width: 100,
                                             decoration: BoxDecoration(
-                                              color: teacher
+                                              color: admin
                                                   ? const Color.fromRGBO(
                                                       250, 169, 19, 1)
                                                   : const Color.fromRGBO(1, 2, 3, 0),
@@ -188,7 +192,7 @@ class _RegisterViewState extends State<RegisterView> {
                                             
                                             child: const Center(
                                               child: Text(
-                                                'TEACHER',
+                                                'ADMIN',
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 15,
@@ -264,6 +268,29 @@ class _RegisterViewState extends State<RegisterView> {
                                   ),//TextField
                                 ),//Container
                                 Visibility(
+                                  visible : admin,
+                                  child: Column(children: [
+                                  const SizedBox(height:5),  
+                                    Container(
+                                      height: 50,
+                                      width: 280,
+                                      child: TextField(
+                                        controller: _passkey,
+                                        decoration: const InputDecoration(
+                                          suffixIcon: Icon(Icons.numbers),
+                                          border: OutlineInputBorder(),
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                          contentPadding: EdgeInsets.all(8.0),
+                                          hintText: 'Enter admin passkey',
+                                        ), //InputDecoration
+                                      ),//TextField
+                                    ),//Container
+                                  ]
+                                  ),//Column
+                                ),
+
+                                Visibility(
                                   visible : student,
                                   child: Column(children: [
                                   const SizedBox(height:5),  
@@ -337,6 +364,9 @@ class _RegisterViewState extends State<RegisterView> {
                                         onPressed: () async {
                                           final email = _email.text;
                                           final password = _password.text;
+                                          final passkey = _passkey.text;
+                                          String? token = await FirebaseMessaging.instance.getToken();
+                                          print(token);
                                           try {
                                             final userCredential = await FirebaseAuth
                                                 .instance
@@ -344,6 +374,8 @@ class _RegisterViewState extends State<RegisterView> {
                                               email: email,
                                               password: password,
                                             );
+
+
                                                 
                                             FirebaseFirestore.instance
                                                 .collection("Users")
@@ -356,14 +388,23 @@ class _RegisterViewState extends State<RegisterView> {
                                               'email': _email.text,
                                               'password': _password.text,
                                               'isStudent':student,
-                                              'isTeacher':teacher,
+                                              'isAdmin':admin,
                                               'isParent':parent,
+                                              'token' : token,
                                               // 'position': ,
                                             });
                                                 
                                             print(userCredential);
                                           } on FirebaseAuthException catch (e) { 
-                                            print(e.code);
+                                            if (e.code == 'invalid-email') {
+                                              print('invalid email');
+                                            } else if (e.code ==
+                                              'email-already-in-use') {
+                                              print('wrong password');
+
+                                            } else if (passkey != '1234') {
+                                              print('incorrect passkey');
+                                            }
                                           }
                                           Navigator.pushNamed(context, '/HomePage');
                                         },

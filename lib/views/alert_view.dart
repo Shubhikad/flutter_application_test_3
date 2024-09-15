@@ -3,18 +3,46 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AlertView extends StatefulWidget {
   const AlertView({super.key});
   
+  
   @override
   State<AlertView> createState() => _AlertViewState();
+  
 }
+
+
+
+Future <String?> getUserLocation() async{
+    try{
+      final location = await Location().getLocation();
+      final latitude = location.latitude;
+      final longitude = location.longitude;
+      print("https://maps.google.com/?q=<$latitude>,<$longitude>");
+      
+    }
+  catch(e){
+    print('error received');
+  }
+  }
+
+
+
 
 class _AlertViewState extends State<AlertView> {
   
   final user = FirebaseAuth.instance.currentUser!;
+
+  @override
+  void initState(){
+    final url = getUserLocation();
+    super.initState();
+  }
+  
   
   List<String> docIds = [];
     Future getDocId() async {
@@ -24,15 +52,16 @@ class _AlertViewState extends State<AlertView> {
       docIds.add(element.reference.id);
     }));
   }
-
   
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {     
+    final address = getUserLocation();
     final Size screenSize = MediaQuery.of(context).size;
     final double height = screenSize.height;
     final double width = screenSize.width;
     double androidHeight = 800.0;
     double androidWidth = 360.0;
+
     return Scaffold(
         backgroundColor:  Colors.white,
         extendBodyBehindAppBar: true,
@@ -53,6 +82,7 @@ class _AlertViewState extends State<AlertView> {
             if(snapshot.hasData){
             final userData = snapshot.data!.data() as Map<String, dynamic>;
             final String _phoneNumber = userData['parentcontact'];
+            final String _username = userData['username'];
             return Column(
               children: [
                 Center(
@@ -85,12 +115,24 @@ class _AlertViewState extends State<AlertView> {
                                         ),
                                         
                                 child: TextButton(
-                                  onPressed: (){
-                                    launch('sms:$_phoneNumber?body=I am in distress and require immediate assistance');
-                                    // final _call = 'tel:$_phoneNumber';
-                                    // if(await canLaunch(_call)){
-                                    //   await launch(_call);
-                                    // }
+                                  onPressed: () async{
+                                    try {
+                                                      final location =
+                                                          await Location()
+                                                              .getLocation();
+                                                      final latitude =
+                                                          location.latitude;
+                                                      final longitude =
+                                                          location.longitude;
+                                                      final address =
+                                                          ("https://maps.google.com/?q=$latitude,$longitude");
+                                                          launch(
+                                                        'sms:$_phoneNumber?body=I am in distress and require immediate assistance, This is my location : $address');
+                                                    } catch (e) {
+                                                      print('error received');
+                                                    }
+                                                    
+                                    
                                   }, 
                                   child: Text(
                                     'Parent',
@@ -116,13 +158,22 @@ class _AlertViewState extends State<AlertView> {
                                           
                                         ),
                                 child: TextButton(
-                                  onPressed: (){
+                                  onPressed: ()async{
                                     
-                                    launch('sms:9819215900?body=I am in distress and require immediate assistance');
-                                    // final _call = 'tel:$_phoneNumber';
-                                    // if(await canLaunch(_call)){
-                                    //   await launch(_call);
-                                    // }
+                                   
+                                                      final location =
+                                                          await Location()
+                                                              .getLocation();
+                                                      final latitude =
+                                                          location.latitude;
+                                                      final longitude =
+                                                          location.longitude;
+                                                      final address =
+                                                          ("https://maps.google.com/?q=$latitude,$longitude");
+                                                          launch(
+                                                        'sms:$_phoneNumber?body=I am in distress and require immediate assistance, This is my location : $address');
+                                                    
+                                                    
                                   
                                   }, 
                                   child: Text(

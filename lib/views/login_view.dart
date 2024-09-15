@@ -173,7 +173,7 @@ class _LoginViewState extends State<LoginView> {
 
                                         print(userCredential);
                                       } on FirebaseAuthException catch (e) {
-                                        var error = false;
+                                        //var error = false;
                                         if (e.code == 'invalid-email') {
                                           print('invalid email');
                                         } else if (e.code ==

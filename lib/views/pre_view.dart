@@ -6,6 +6,7 @@ class PreView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     final Size screenSize = MediaQuery.of(context).size;
     final double height = screenSize.height;
     final double width = screenSize.width;

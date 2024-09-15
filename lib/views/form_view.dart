@@ -1,9 +1,12 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, depend_on_referenced_packages
+
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:path_provider/path_provider.dart';
 
 class FormView extends StatefulWidget {
   const FormView({super.key});
@@ -19,10 +22,10 @@ class _FormViewState extends State<FormView> {
       FirebaseFirestore.instance.collection('ReportingForm');
   Stream<QuerySnapshot> getFormsStream() {
     final formsStream = forms.snapshots();
-    var password_is_correct = false;
     return formsStream;
   }
 
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,155 +56,160 @@ class _FormViewState extends State<FormView> {
           if (snapshot.hasData) {
             List formList = snapshot.data!.docs;
 
-            return ListView.builder(
-              itemCount: formList.length,
-              itemBuilder: (context, index) {
-                DocumentSnapshot document = formList[index];
-                String docId = document.id;
-
-                Map<String, dynamic> data =
-                    document.data() as Map<String, dynamic>;
-                String formText = data['bully1'];
-
-                return Column(
+            return 
+                  ListView.builder(
+                    itemCount: formList.length,
+                    itemBuilder: (context, index) {
+                      DocumentSnapshot document = formList[index];
+                          
                   
-                    children: [
-                      Container(
-                        height: 300,
-                          width: 300,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(7),
-                              border: Border.all(color: Colors.black)),//BoxDecoration
-                          padding: EdgeInsets.all(8.0),
-                       
-                        child: SingleChildScrollView(
-                          child: Column(
-                          
-                          children: [
-                           Text('date :' + data['date'],
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 18,
-                            ),
-                            // textAlign: TextAlign.left  ,
-                            ),
-                            Text('time: ' + data['time'],
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 18,
-                            ),),
-                          
-                            Text('type: ' + data['type'],
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 18,
-                            ),),
-                          
-                            Text('location: ' + data['location'],
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 18,
-                            ),),
-                          
-                          
-                            
-                          Text('bully 1: ' +
-                            data['bully1'],
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 18,
-                            ),
-                          ), 
-                          Visibility(
-                            visible: !(data['bully2']==""),
-                            child: Text('bully 2: ' +
-                              data['bully2'],
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 18,
-                              ),
-                            ),
-                          ),
-                          Visibility(
-                            visible: data['bully3']!="",
-                            child: Text('bully 3: ' +
-                              data['bully3'],
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 18,
-                              ),
-                            ),
-                          ),  
-                          
-                          Text('victim: ' +
-                            data['victim1'],
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 18,
-                            ),
-                          ), 
-                          Visibility(
-                            visible: data['victim2']!="",
-                            child: Text('victim 2: ' +
-                              data['victim2'],
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 18,
-                              ),
-                            ),
-                          ),
-                          Visibility(
-                            visible: data['victim3']!="",
-                            child: Text('victim 3: ' +
-                              data['victim3'],
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 18,
-                              ),
-                            ),
-                          ), 
-                          
-                          Visibility(
-                            visible: data['witness1']!="",
-                            child: Text('witness: ' + data['witness1'],
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 18,
-                            ),)
-                          ),
-                          Visibility(
-                            visible: data['witness2']!="",
-                            child: Text('witness 2: ' + data['witness2'],
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 18,
-                            ),)
-                          ),
-                          Visibility(
-                            visible: data['witness3']!="",
-                            child: Text('witness 3: ' + data['witness3'],
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 18,
-                            ),)
-                          ),   
-                          
-                          
-                          Text('details: ' + data['details'],
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 18,
-                            ),)
-                          ],
-                                                ),
-                        ),
-                      ),
+                      Map<String, dynamic> data =
+                          document.data() as Map<String, dynamic>;
+                         
+                  
+                      return Column(
+                        children: [
 
-                      SizedBox(height:20)
-                    ]);
-              },
-            );
+                                Container(
+                                  height: 300,
+                                    width: 300,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(7),
+                                        border: Border.all(color: Colors.black)),//BoxDecoration
+                                    padding: EdgeInsets.all(8.0),
+                                 
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                    
+                                    children: [
+                                     Text('date :' + data['date'],
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 18,
+                                      ),
+                                      // textAlign: TextAlign.left  ,
+                                      ),
+                                      Text('time: ' + data['time'],
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 18,
+                                      ),),
+                                    
+                                      Text('type: ' + data['type'],
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 18,
+                                      ),),
+                                    
+                                      Text('location: ' + data['location'],
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 18,
+                                      ),),
+                                    
+                                    
+                                      
+                                    Text('bully 1: ' +
+                                      data['bully1'],
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 18,
+                                      ),
+                                    ), 
+                                    Visibility(
+                                      visible: !(data['bully2']==""),
+                                      child: Text('bully 2: ' +
+                                        data['bully2'],
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible: data['bully3']!="",
+                                      child: Text('bully 3: ' +
+                                        data['bully3'],
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                    ),  
+                                    
+                                    Text('victim: ' +
+                                      data['victim1'],
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 18,
+                                      ),
+                                    ), 
+                                    Visibility(
+                                      visible: data['victim2']!="",
+                                      child: Text('victim 2: ' +
+                                        data['victim2'],
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible: data['victim3']!="",
+                                      child: Text('victim 3: ' +
+                                        data['victim3'],
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                    ), 
+                                    
+                                    Visibility(
+                                      visible: data['witness1']!="",
+                                      child: Text('witness: ' + data['witness1'],
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 18,
+                                      ),)
+                                    ),
+                                    Visibility(
+                                      visible: data['witness2']!="",
+                                      child: Text('witness 2: ' + data['witness2'],
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 18,
+                                      ),)
+                                    ),
+                                    Visibility(
+                                      visible: data['witness3']!="",
+                                      child: Text('witness 3: ' + data['witness3'],
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 18,
+                                      ),)
+                                    ),   
+                                    
+                                    
+                                    Text('details: ' + data['details'],
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 18,
+                                      ),)
+                                    ],
+                                   ),
+                                  ),
+                                ),
+                                SizedBox(height:20)
+                              ],
+                           
+                  
+                            
+                          );
+                    },
+                  );
+             
             //Check for errors
           } else if (snapshot.hasError) {
             return Center(child: Text(('Error' + snapshot.error.toString())));
@@ -212,4 +220,6 @@ class _FormViewState extends State<FormView> {
       ), //StreamBuilder
     ); //Scaffold
   }
+
+   
 }
