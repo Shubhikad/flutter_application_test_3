@@ -386,7 +386,6 @@ class _RegisterViewState extends State<RegisterView> {
                                               'parentname': _parentname.text,
                                               'parentcontact': _parentcontact.text,
                                               'email': _email.text,
-                                              'password': _password.text,
                                               'isStudent':student,
                                               'isAdmin':admin,
                                               'isParent':parent,

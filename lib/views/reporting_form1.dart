@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart'; // import the basic package
 import 'package:flutter_application_test_3/firebase_options.dart'; // import the tools for firebase
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // import the tools needed to adjust the screensize
@@ -14,6 +13,16 @@ class ReportingFormView extends StatefulWidget {
 }
 
 class _ReportingFormViewState extends State<ReportingFormView> {
+  // List<String> docIds = [];
+  // final user = FirebaseAuth.instance.currentUser!;
+  //   Future getDocId() async {
+  //   await FirebaseFirestore.instance.collection('Users').get().then(
+  //   (snapshot)=>snapshot.docs.forEach((element){
+  //     print(element.reference);
+  //     docIds.add(element.reference.id);
+  //   }));
+  // }
+
 // variables to inlude in database
   var type = ""; // type of bullying (online/offline)
   var location =
@@ -185,15 +194,13 @@ class _ReportingFormViewState extends State<ReportingFormView> {
   }
 
   void date_picker(BuildContext context) {
-    showDatePicker(
-      // picks the date
+    showDatePicker( // picks the date
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime.now(),
     ).then((value) {
-      setState(() {
-        // stores value of date and changes button colour
+      setState(() { // stores value of date and changes button colour
         dateTemp = value;
         dateChosen = true;
       });
@@ -201,33 +208,29 @@ class _ReportingFormViewState extends State<ReportingFormView> {
   }
 
   void time_picker(BuildContext context) {
-    showTimePicker(
-            context: context, initialTime: TimeOfDay.now()) // picks the date
+    showTimePicker(context: context, initialTime: TimeOfDay.now()) // picks the date
         .then((value) {
-      setState(() {
-        // stores value of date and changes button colour
+      setState(() { // stores value of time and changes button colour
         timeTemp = value;
         timeChosen = true;
+       
       });
     });
   }
 
   void setDate() {
     setState(() {
-      date = dateTemp
-          ?.toIso8601String(); // converts variable to string so can be stored
+      date = dateTemp?.toIso8601String(); // converts variable to string so can be stored
     });
   }
 
   void setTime() {
     setState(() {
-      time = timeTemp
-          ?.format(context); // converts variable to string so can be stored
+      time = timeTemp?.format(context); // converts variable to string so can be stored
     });
   }
 
-  void initState() {
-    // stores all text fields as controllers
+  void initState() { // stores all text fields as controllers
     _victim = TextEditingController();
     _victim2 = TextEditingController();
     _victim3 = TextEditingController();
@@ -242,8 +245,7 @@ class _ReportingFormViewState extends State<ReportingFormView> {
   }
 
   @override
-  void dispose() {
-    // disposes of all text fields which are controllers
+  void dispose() { // disposes of all text fields which are controllers
     _victim.dispose();
     _victim2.dispose();
     _victim3.dispose();
@@ -257,11 +259,10 @@ class _ReportingFormViewState extends State<ReportingFormView> {
     super.dispose();
   }
 
-  void nameOfVictimChosen(String name) {
-    // stores victims names
+  void nameOfVictimChosen(String name) { // stores victims names
     if (victims == 1) {
       setState(() {
-        _victim.text = name;
+        _victim.text = name; 
       });
     } else if (victims == 2) {
       setState(() {
@@ -274,22 +275,19 @@ class _ReportingFormViewState extends State<ReportingFormView> {
     }
   }
 
-  void addAVictim() {
-    // increases victim count
+  void addAVictim() { // increases victim count
     setState(() {
       victims = victims + 1;
     });
   }
 
-  void removeAVictim() {
-    // decreases victim count
+  void removeAVictim() { // decreases victim count
     setState(() {
       victims = victims - 1;
     });
   }
 
-  void nameOfBullyChosen(String name) {
-    // stores bullies names
+  void nameOfBullyChosen(String name) { // stores bullies names
     if (bullies == 1) {
       setState(() {
         _bully.text = name;
@@ -305,29 +303,25 @@ class _ReportingFormViewState extends State<ReportingFormView> {
     }
   }
 
-  void addABully() {
-    // increases bully count
+  void addABully() { // increases bully count
     setState(() {
       bullies = bullies + 1;
     });
   }
 
-  void removeABully() {
-    // decreases bully count
+  void removeABully() { // decreases bully count
     setState(() {
       bullies = bullies - 1;
     });
   }
 
-  void changePage() {
-    // changes page
+  void changePage() { // changes page
     setState(() {
       page = page;
     });
   }
 
-  void nameOfWitnessChosen(String name) {
-    // stores witnesses names
+  void nameOfWitnessChosen(String name) { // stores witnesses names
     if (witnesses == 1) {
       setState(() {
         _witness.text = name;
@@ -343,22 +337,19 @@ class _ReportingFormViewState extends State<ReportingFormView> {
     }
   }
 
-  void addAWitness() {
-    // increases witness count
+  void addAWitness() { // increases witness count
     setState(() {
       witnesses = witnesses + 1;
     });
   }
 
-  void removeAWitness() {
-    // decreases witness count
+  void removeAWitness() { // decreases witness count
     setState(() {
       witnesses = witnesses - 1;
     });
   }
 
-  void detailsGiven(String text) {
-    // stores details
+  void detailsGiven(String text) { // stores details
     setState(() {
       _details.text = text;
     });
@@ -437,9 +428,10 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                             Visibility(
                               visible: page == 1,
                               child: Stack(children: [
-                                Image.asset("lib/images/Android Large - 12.png",
-                                    fit: BoxFit.contain), // sets background
-
+                                Image.asset(
+                                  "lib/images/Android Large - 12.png",
+                                  fit: BoxFit.contain), // sets background
+                                
                                 Container(
                                   height: height,
                                   //color: Color(0xFFEB7C10),
@@ -504,20 +496,17 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                               SizedBox(
                                                 width: 190.sp,
                                                 height: 60.0.sp,
-                                                child: ElevatedButton(
-                                                  // offline button
+                                                child: ElevatedButton( // offline button
                                                   onPressed: () {
                                                     typeOffline();
                                                   },
-                                                  style:
-                                                      ElevatedButton.styleFrom(
+                                                  style: ElevatedButton.styleFrom(
                                                     backgroundColor:
                                                         offlinePressed
                                                             ? Color(0xFFF2BE0F)
                                                             : const Color(
                                                                 0xFFEB7C10),
-                                                    foregroundColor:
-                                                        Colors.white,
+                                                    foregroundColor: Colors.white,
                                                     side: BorderSide(
                                                         color: Colors.white,
                                                         width: 2.0.sp),
@@ -531,23 +520,18 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                                   ),
                                                 ),
                                               ),
-                                              SizedBox(
+                                              SizedBox( 
                                                 width: 170.sp,
                                                 height: 60.0.sp,
-                                                child: ElevatedButton(
-                                                  // online button
+                                                child: ElevatedButton( // online button
                                                   onPressed: () {
                                                     typeOnline();
                                                   },
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                    backgroundColor:
-                                                        onlinePressed
-                                                            ? Color(0xFFF2BE0F)
-                                                            : const Color(
-                                                                0xFFEB7C10),
-                                                    foregroundColor:
-                                                        Colors.white,
+                                                  style: ElevatedButton.styleFrom( 
+                                                    backgroundColor: onlinePressed
+                                                        ? Color(0xFFF2BE0F)
+                                                        : const Color(0xFFEB7C10),
+                                                    foregroundColor: Colors.white,
                                                     side: BorderSide(
                                                         color: Colors.white,
                                                         width: 2.0.sp),
@@ -572,15 +556,14 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                                 // creates a column to store multiple visibility widgets
                                                 Container(
                                                   // creates a container for the text
-                                                  alignment:
-                                                      Alignment.centerLeft,
+                                                  alignment: Alignment.centerLeft,
                                                   padding:
                                                       EdgeInsets.all(10.0.sp),
                                                   child: Text(
                                                     'Where did the incident happen?',
                                                   ),
                                                 ),
-
+                      
                                                 Row(
                                                   // creates a row for the 3 buttons
                                                   mainAxisAlignment:
@@ -590,8 +573,7 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                                     SizedBox(
                                                       width: 128.0.sp,
                                                       height: 60.0.sp,
-                                                      child: ElevatedButton(
-                                                        // in school button
+                                                      child: ElevatedButton( // in school button
                                                         onPressed: () {
                                                           inSchool();
                                                         },
@@ -606,8 +588,7 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                                           foregroundColor:
                                                               Colors.white,
                                                           side: BorderSide(
-                                                              color:
-                                                                  Colors.white,
+                                                              color: Colors.white,
                                                               width: 2.0.sp),
                                                         ),
                                                         child: Text(
@@ -623,12 +604,11 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                                     SizedBox(
                                                       width: 140.0.sp,
                                                       height: 60.0.sp,
-                                                      child: ElevatedButton(
-                                                        // on the bus button
+                                                      child: ElevatedButton( // on the bus button
                                                         onPressed: () {
                                                           onTheBus();
                                                         },
-                                                        style: ElevatedButton
+                                                        style: ElevatedButton 
                                                             .styleFrom(
                                                           backgroundColor:
                                                               onTheBusPressed
@@ -639,8 +619,7 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                                           foregroundColor:
                                                               Colors.white,
                                                           side: BorderSide(
-                                                              color:
-                                                                  Colors.white,
+                                                              color: Colors.white,
                                                               width: 2.0.sp),
                                                         ),
                                                         child: Text(
@@ -656,8 +635,7 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                                     SizedBox(
                                                       width: 116.0.sp,
                                                       height: 60.0.sp,
-                                                      child: ElevatedButton(
-                                                        // outside button
+                                                      child: ElevatedButton( // outside button
                                                         onPressed: () {
                                                           outsideSchool();
                                                         },
@@ -672,8 +650,7 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                                           foregroundColor:
                                                               Colors.white,
                                                           side: BorderSide(
-                                                              color:
-                                                                  Colors.white,
+                                                              color: Colors.white,
                                                               width: 2.0.sp),
                                                         ),
                                                         child: Text(
@@ -698,214 +675,201 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                                 // creates a column to store multiple visibility widgets
                                                 Container(
                                                   // creates a container to store text
-                                                  alignment:
-                                                      Alignment.centerLeft,
+                                                  alignment: Alignment.centerLeft,
                                                   padding:
                                                       EdgeInsets.all(10.0.sp),
                                                   child: Text(
                                                     'Where did the incident happen?',
                                                   ),
                                                 ),
-
-                                                SingleChildScrollView(
-                                                  child: Row(
-                                                    // creates a row for the buttons
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
-                                                    children: [
-                                                      IconButton(
-                                                        // icon button 1 - instagram
-                                                        onPressed: () {
-                                                          instagram(); // when pressed, carry out instagram function
-                                                        },
-
-                                                        icon: Container(
-                                                          // place icon in a container so border can be added
-                                                          width: 60.0
-                                                              .sp, // width = width of image + border
-                                                          height: 60.0
-                                                              .sp, // height = height of image + border
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            border: Border.all(
-                                                              // constant border throughout
-                                                              color: instagramPressed
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .transparent, // when pressed, border becomes visible and white
-                                                              width: 3.0.sp,
-                                                            ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        12.0), // most apps are rounded squares
+                      
+                                                Row(
+                                                  // creates a row for the buttons
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  children: [
+                                                    IconButton(
+                                                      // icon button 1 - instagram
+                                                      onPressed: () {
+                                                        instagram(); // when pressed, carry out instagram function
+                                                      },
+                      
+                                                      icon: Container(
+                                                        // place icon in a container so border can be added
+                                                        width: 65.0
+                                                            .sp, // width = width of image + border
+                                                        height: 65.0
+                                                            .sp, // height = height of image + border
+                                                        decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                            // constant border throughout
+                                                            color: instagramPressed
+                                                                ? Colors.white
+                                                                : Colors
+                                                                    .transparent, // when pressed, border becomes visible and white
+                                                            width: 3.0.sp,
                                                           ),
-
-                                                          child: Image.asset(
-                                                            // place image as the child of the container
-                                                            'lib/images/instagram_logo.png', // access image from lib/images folder
-                                                            width: 50.0.sp,
-                                                            height: 50.0.sp,
-                                                            fit: BoxFit
-                                                                .contain, // contain image
-                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  12.0), // most apps are rounded squares
+                                                        ),
+                      
+                                                        child: Image.asset(
+                                                          // place image as the child of the container
+                                                          'lib/images/instagram_logo.png', // access image from lib/images folder
+                                                          width: 50.0.sp,
+                                                          height: 50.0.sp,
+                                                          fit: BoxFit
+                                                              .contain, // contain image
                                                         ),
                                                       ),
-                                                      IconButton(
-                                                        // icon button 2 - snapchat
-                                                        onPressed: () {
-                                                          snapchat(); // when pressed, carry out snapchat function
-                                                        },
-
-                                                        icon: Container(
-                                                          // place icon in a container so border can be added
-                                                          width: 60.0
-                                                              .sp, // width = width of image + border
-                                                          height: 60.0
-                                                              .sp, // height = height of image + border
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            border: Border.all(
-                                                              // constant border throughout
-                                                              color: snapchatPressed
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .transparent, // when pressed, border becomes visible and white
-                                                              width: 3.0.sp,
-                                                            ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        16.0), // most apps are rounded squares
+                                                    ),
+                                                    IconButton(
+                                                      // icon button 2 - snapchat
+                                                      onPressed: () {
+                                                        snapchat(); // when pressed, carry out snapchat function
+                                                      },
+                      
+                                                      icon: Container(
+                                                        // place icon in a container so border can be added
+                                                        width: 65.0
+                                                            .sp, // width = width of image + border
+                                                        height: 65.0
+                                                            .sp, // height = height of image + border
+                                                        decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                            // constant border throughout
+                                                            color: snapchatPressed
+                                                                ? Colors.white
+                                                                : Colors
+                                                                    .transparent, // when pressed, border becomes visible and white
+                                                            width: 3.0.sp,
                                                           ),
-
-                                                          child: Image.asset(
-                                                            // place image as the child of the container
-                                                            'lib/images/snapchat_logo.png', // access image from lib/images folder
-                                                            width: 60.0.sp,
-                                                            height: 60.0.sp,
-                                                            fit: BoxFit
-                                                                .contain, // contain image
-                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  16.0), // most apps are rounded squares
+                                                        ),
+                      
+                                                        child: Image.asset(
+                                                          // place image as the child of the container
+                                                          'lib/images/snapchat_logo.png', // access image from lib/images folder
+                                                          width: 60.0.sp,
+                                                          height: 60.0.sp,
+                                                          fit: BoxFit
+                                                              .contain, // contain image
                                                         ),
                                                       ),
-                                                      IconButton(
-                                                        // icon button 3 - whatsapp
-                                                        onPressed: () {
-                                                          whatsapp(); // when pressed, carry out whatsapp function
-                                                        },
-
-                                                        icon: Container(
-                                                          // place icon in a container so border can be added
-                                                          width: 60.0
-                                                              .sp, // width = width of image + border
-                                                          height: 60.0
-                                                              .sp, // height = height of image + border
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            border: Border.all(
-                                                              // constant border throughout
-                                                              color: whatsappPressed
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .transparent, // when pressed, border becomes visible and white
-                                                              width: 3.0.sp,
-                                                            ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        16.0), // most apps are rounded squares
+                                                    ),
+                                                    IconButton(
+                                                      // icon button 3 - whatsapp
+                                                      onPressed: () {
+                                                        whatsapp(); // when pressed, carry out whatsapp function
+                                                      },
+                      
+                                                      icon: Container(
+                                                        // place icon in a container so border can be added
+                                                        width: 65.0
+                                                            .sp, // width = width of image + border
+                                                        height: 65.0
+                                                            .sp, // height = height of image + border
+                                                        decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                            // constant border throughout
+                                                            color: whatsappPressed
+                                                                ? Colors.white
+                                                                : Colors
+                                                                    .transparent, // when pressed, border becomes visible and white
+                                                            width: 3.0.sp,
                                                           ),
-
-                                                          child: Image.asset(
-                                                            // place image as the child of the container
-                                                            'lib/images/whatsapp_logo.png', // access image from lib/images folder
-                                                            width: 45.0.sp,
-                                                            height: 45.0.sp,
-                                                            fit: BoxFit
-                                                                .contain, // contain image
-                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  16.0), // most apps are rounded squares
+                                                        ),
+                      
+                                                        child: Image.asset(
+                                                          // place image as the child of the container
+                                                          'lib/images/whatsapp_logo.png', // access image from lib/images folder
+                                                          width: 50.0.sp,
+                                                          height: 50.0.sp,
+                                                          fit: BoxFit
+                                                              .contain, // contain image
                                                         ),
                                                       ),
-                                                      IconButton(
-                                                        // icon button 4 - games (refers to any kind of online games)
-                                                        onPressed: () {
-                                                          games(); // when pressed, carry out games function
-                                                        },
-
-                                                        icon: Container(
-                                                          // place icon in a container so border can be added
-                                                          width: 65.0
-                                                              .sp, // width = width of image + border
-                                                          height: 65.0
-                                                              .sp, // height = height of image + border
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            border: Border.all(
-                                                              // constant border throughout
-                                                              color: gamesPressed
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .transparent, // when pressed, border becomes visible and white
-                                                              width: 3.0,
-                                                            ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        16.0), // most apps are rounded squares
+                                                    ),
+                                                    IconButton(
+                                                      // icon button 4 - games (refers to any kind of online games)
+                                                      onPressed: () {
+                                                        games(); // when pressed, carry out games function
+                                                      },
+                      
+                                                      icon: Container(
+                                                        // place icon in a container so border can be added
+                                                        width: 65.0
+                                                            .sp, // width = width of image + border
+                                                        height: 65.0
+                                                            .sp, // height = height of image + border
+                                                        decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                            // constant border throughout
+                                                            color: gamesPressed
+                                                                ? Colors.white
+                                                                : Colors
+                                                                    .transparent, // when pressed, border becomes visible and white
+                                                            width: 3.0,
                                                           ),
-
-                                                          child: Image.asset(
-                                                            // place image as the child of the container
-                                                            'lib/images/games_logo.png', // access image from lib/images folder
-                                                            width: 50.0.sp,
-                                                            height: 50.0.sp,
-                                                            fit: BoxFit
-                                                                .contain, // contain image
-                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  16.0), // most apps are rounded squares
+                                                        ),
+                      
+                                                        child: Image.asset(
+                                                          // place image as the child of the container
+                                                          'lib/images/games_logo.png', // access image from lib/images folder
+                                                          width: 50.0.sp,
+                                                          height: 50.0.sp,
+                                                          fit: BoxFit
+                                                              .contain, // contain image
                                                         ),
                                                       ),
-                                                      IconButton(
-                                                        // icon button 5 - other
-                                                        onPressed: () {
-                                                          other(); // when pressed, carry out other function
-                                                        },
-
-                                                        icon: Container(
-                                                          // place icon in a container so border can be added
-                                                          width: 65.0
-                                                              .sp, // width = width of image + border
-                                                          height: 65.0
-                                                              .sp, // height = height of image + border
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            border: Border.all(
-                                                              // constant border throughout
-                                                              color: otherPressed
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .transparent, // when pressed, border becomes visible and white
-                                                              width: 3.0,
-                                                            ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        16.0), // most apps are rounded squares
+                                                    ),
+                                                    IconButton(
+                                                      // icon button 5 - other
+                                                      onPressed: () {
+                                                        other(); // when pressed, carry out other function
+                                                      },
+                      
+                                                      icon: Container(
+                                                        // place icon in a container so border can be added
+                                                        width: 65.0
+                                                            .sp, // width = width of image + border
+                                                        height: 65.0
+                                                            .sp, // height = height of image + border
+                                                        decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                            // constant border throughout
+                                                            color: otherPressed
+                                                                ? Colors.white
+                                                                : Colors
+                                                                    .transparent, // when pressed, border becomes visible and white
+                                                            width: 3.0,
                                                           ),
-
-                                                          child: Image.asset(
-                                                            // place image as the child of the container
-                                                            'lib/images/other_logo.png', // access image from lib/images folder
-                                                            width: 50.0.sp,
-                                                            height: 50.0.sp,
-                                                            fit: BoxFit
-                                                                .contain, // contain image
-                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  16.0), // most apps are rounded squares
+                                                        ),
+                      
+                                                        child: Image.asset(
+                                                          // place image as the child of the container
+                                                          'lib/images/other_logo.png', // access image from lib/images folder
+                                                          width: 50.0.sp,
+                                                          height: 50.0.sp,
+                                                          fit: BoxFit
+                                                              .contain, // contain image
                                                         ),
                                                       ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ],
                                             ),
@@ -923,13 +887,11 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceEvenly,
                                             children: [
-                                              ElevatedButton(
-                                                // date picker
+                                              ElevatedButton( // date picker
                                                 onPressed: () {
-                                                  date_picker(context);
-                                                  setDate();
-                                                },
-
+                                                    date_picker(context);
+                                                    setDate();
+                                                    },
                                                 style: ElevatedButton.styleFrom(
                                                   backgroundColor: dateChosen
                                                       ? Color(0xFFF2BE0F)
@@ -941,18 +903,16 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                                 ),
                                                 child: Text(
                                                   'Date',
-                                                  style: bigButtonTextStyle
-                                                      .copyWith(
+                                                  style:
+                                                      bigButtonTextStyle.copyWith(
                                                     fontSize: 24.0.sp,
                                                   ),
                                                 ),
                                               ),
-                                              ElevatedButton(
-                                                // time picker
+                                              ElevatedButton( // time picker
                                                 onPressed: () {
-                                                  time_picker(context);
-                                                  setTime();
-                                                },
+                                                    time_picker(context);
+                                                    setTime();},
                                                 style: ElevatedButton.styleFrom(
                                                   backgroundColor: timeChosen
                                                       ? Color(0xFFF2BE0F)
@@ -964,8 +924,8 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                                 ),
                                                 child: Text(
                                                   'Time',
-                                                  style: bigButtonTextStyle
-                                                      .copyWith(
+                                                  style:
+                                                      bigButtonTextStyle.copyWith(
                                                     fontSize: 24.0.sp,
                                                   ),
                                                 ),
@@ -992,8 +952,8 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                               'lib/images/home.png', // access image from lib/images folder
                                               width: 70.0.sp,
                                               height: 70.0.sp,
-                                              fit: BoxFit
-                                                  .contain, // contain image
+                                              fit:
+                                                  BoxFit.contain, // contain image
                                             ),
                                           ),
                                           IconButton(
@@ -1012,8 +972,8 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                               'lib/images/back.png', // access image from lib/images folder
                                               width: 70.0.sp,
                                               height: 70.0.sp,
-                                              fit: BoxFit
-                                                  .contain, // contain image
+                                              fit:
+                                                  BoxFit.contain, // contain image
                                             ),
                                           ),
                                           IconButton(
@@ -1033,8 +993,8 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                               'lib/images/next.png', // access image from lib/images folder
                                               width: 70.0.sp,
                                               height: 70.0.sp,
-                                              fit: BoxFit
-                                                  .contain, // contain image
+                                              fit:
+                                                  BoxFit.contain, // contain image
                                             ),
                                           ),
                                         ],
@@ -1045,479 +1005,474 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                 ),
                               ]),
                             ),
-
+                      
                             // page 2
                             Visibility(
                               visible: page == 2,
                               maintainSize: false,
                               child: Stack(
                                 children: [
-                                  Image.asset(
-                                      "lib/images/Android Large - 12.png"), // background image
+                                  Image.asset("lib/images/Android Large - 12.png"), // background image
                                   Container(
-                                    color: Colors.transparent,
-                                    padding: EdgeInsets.all(10.0.sp),
-                                    height: height,
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          color: Colors.transparent,
-                                          // creates a container for the title text
-                                          alignment: Alignment.centerLeft,
-                                          padding: EdgeInsets.only(
-                                              top: topPadding,
-                                              bottom: 0.0.sp,
-                                              left: 10.0.sp,
-                                              right: 10.0.sp),
-                                          child: Text(
-                                            'Reporting Form',
-                                            style: titleTextStyle.copyWith(
-                                              fontSize: 28.0.sp,
-                                            ),
-                                            // changes default style to title text
-                                          ),
-                                        ),
-                                        Container(
-                                          // creates a container for the subtitle text
-                                          alignment: Alignment.centerLeft,
-                                          padding: EdgeInsets.only(
-                                              top: 0.0,
-                                              bottom: 20.0.sp,
-                                              left: 10.0.sp,
-                                              right: 10.0.sp),
-                                          child: Text(
-                                              'Tell us about the people involved...',
-                                              style: TextStyle(
-                                                  fontSize: 17.sp,
-                                                  fontWeight: FontWeight.w400)),
-                                        ),
-                                        Container(
-                                          // creates a line
-                                          width: 9000.0,
-                                          height: 2.0,
-                                          color: Colors.white,
-                                          padding: EdgeInsets.all(0.0),
-                                        ),
-                                        SizedBox(height: 30.0.sp),
-                                        Row(
-                                          children: [
-                                            Align(
-                                              // victim 1
-                                              alignment: Alignment.topLeft,
-                                              child: SizedBox(
-                                                width: 300.0.sp,
-                                                height: 60.0.sp,
-                                                child: TextField(
-                                                  controller: _victim,
-                                                  enableSuggestions: false,
-                                                  autocorrect: false,
-                                                  keyboardType:
-                                                      TextInputType.name,
-                                                  decoration:
-                                                      const InputDecoration(
-                                                    border: OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                          width: 20.0,
-                                                          style:
-                                                              BorderStyle.solid,
-                                                          color: Colors.black,
-                                                          strokeAlign: BorderSide
-                                                              .strokeAlignCenter),
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  7)),
-                                                    ),
-                                                    filled: true,
-                                                    fillColor: Colors.white,
-                                                    contentPadding:
-                                                        EdgeInsets.all(10.0),
-                                                    hintText: 'Name of Victim',
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            IconButton(
-                                              onPressed: () {
-                                                if (victims < 4) {
-                                                  addAVictim();
-                                                }
-                                              },
-                                              icon: Image.asset(
-                                                // place image as the child of the container
-                                                'lib/images/plus.png', // access image from lib/images folder
-                                                width: 60.0.sp,
-                                                height: 60.0.sp,
-                                                fit: BoxFit
-                                                    .contain, // contain image
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(height: 10.0.sp),
-                                        Visibility(
-                                          // victim 2
-                                          visible: (victims > 1),
-                                          child: Row(
+                                      color: Colors.transparent,
+                                      padding: EdgeInsets.all(10.0.sp),
+                                      height: height,
+                                      child: 
+                                           Column(
                                             children: [
-                                              Align(
-                                                alignment: Alignment.topLeft,
-                                                child: SizedBox(
-                                                  width: 300.0.sp,
-                                                  height: 60.0.sp,
-                                                  child: TextField(
-                                                    controller: _victim2,
-                                                    enableSuggestions: false,
-                                                    autocorrect: false,
-                                                    keyboardType:
-                                                        TextInputType.name,
-                                                    decoration:
-                                                        const InputDecoration(
-                                                      border:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                            width: 20.0,
-                                                            style: BorderStyle
-                                                                .solid,
-                                                            color: Colors.black,
-                                                            strokeAlign: BorderSide
-                                                                .strokeAlignCenter),
-                                                        borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    7)),
+                                              Container(
+                                                color: Colors.transparent,
+                                                // creates a container for the title text
+                                                alignment: Alignment.centerLeft,
+                                                padding: EdgeInsets.only(
+                                                    top: topPadding,
+                                                    bottom: 0.0.sp,
+                                                    left: 10.0.sp,
+                                                    right: 10.0.sp),
+                                                child: Text(
+                                                  'Reporting Form',
+                                                  style: titleTextStyle.copyWith(
+                                                    fontSize: 28.0.sp,
+                                                  ),
+                                                  // changes default style to title text
+                                                ),
+                                              ),
+                                              Container(
+                                                // creates a container for the subtitle text
+                                                alignment: Alignment.centerLeft,
+                                                padding: EdgeInsets.only(
+                                                    top: 0.0,
+                                                    bottom: 20.0.sp,
+                                                    left: 10.0.sp,
+                                                    right: 10.0.sp),
+                                                child: Text(
+                                                    'Tell us about the people involved...',
+                                                    style: TextStyle(
+                                                        fontSize: 17.sp,
+                                                        fontWeight: FontWeight.w400)),
+                                              ),
+                                              Container(
+                                                // creates a line
+                                                width: 9000.0,
+                                                height: 2.0,
+                                                color: Colors.white,
+                                                padding: EdgeInsets.all(0.0),
+                                              ),
+                                              SizedBox(height: 30.0.sp),
+                                              Row(
+                                                children: [
+                                                  Align( // victim 1
+                                                    alignment: Alignment.topLeft,
+                                                    child: SizedBox(
+                                                      width: 300.0.sp,
+                                                      height: 60.0.sp,
+                                                      child: TextField(
+                                                        controller: _victim,
+                                                        enableSuggestions: false,
+                                                        autocorrect: false,
+                                                        keyboardType:
+                                                            TextInputType.name,
+                                                        decoration:
+                                                            const InputDecoration(
+                                                          border: OutlineInputBorder(
+                                                            borderSide: BorderSide(
+                                                                width: 20.0,
+                                                                style:
+                                                                    BorderStyle.solid,
+                                                                color: Colors.black,
+                                                                strokeAlign: BorderSide
+                                                                    .strokeAlignCenter),
+                                                            borderRadius:
+                                                                BorderRadius.all(
+                                                                    Radius.circular(
+                                                                        7)),
+                                                          ),
+                                                          filled: true,
+                                                          fillColor: Colors.white,
+                                                          contentPadding:
+                                                              EdgeInsets.all(10.0),
+                                                          hintText: 'Name of Victim',
+                                                        ),
                                                       ),
-                                                      filled: true,
-                                                      fillColor: Colors.white,
-                                                      contentPadding:
-                                                          EdgeInsets.all(10.0),
-                                                      hintText:
-                                                          'Name of Victim 2',
                                                     ),
                                                   ),
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      if (victims < 4) {
+                                                        addAVictim();
+                                                      }
+                                                    },
+                                                    icon: Image.asset(
+                                                      // place image as the child of the container
+                                                      'lib/images/plus.png', // access image from lib/images folder
+                                                      width: 60.0.sp,
+                                                      height: 60.0.sp,
+                                                      fit: BoxFit
+                                                          .contain, // contain image
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(height: 10.0.sp),
+                                    
+                                              Visibility( // victim 2
+                                                visible: (victims > 1),
+                                                child: Row(
+                                                  children: [
+                                                    Align(
+                                                      alignment: Alignment.topLeft,
+                                                      child: SizedBox(
+                                                        width: 300.0.sp,
+                                                        height: 60.0.sp,
+                                                        child: TextField(
+                                                          controller: _victim2,
+                                                          enableSuggestions: false,
+                                                          autocorrect: false,
+                                                          keyboardType:
+                                                              TextInputType.name,
+                                                          decoration:
+                                                              const InputDecoration(
+                                                            border:
+                                                                OutlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                  width: 20.0,
+                                                                  style: BorderStyle
+                                                                      .solid,
+                                                                  color: Colors.black,
+                                                                  strokeAlign: BorderSide
+                                                                      .strokeAlignCenter),
+                                                              borderRadius:
+                                                                  BorderRadius.all(
+                                                                      Radius.circular(
+                                                                          7)),
+                                                            ),
+                                                            filled: true,
+                                                            fillColor: Colors.white,
+                                                            contentPadding:
+                                                                EdgeInsets.all(10.0),
+                                                            hintText:
+                                                                'Name of Victim 2',
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        if (victims > 1) {
+                                                          removeAVictim();
+                                                        }
+                                                      },
+                                                      icon: Image.asset(
+                                                        // place image as the child of the container
+                                                        'lib/images/minus.png', // access image from lib/images folder
+                                                        width: 60.0.sp,
+                                                        height: 60.0.sp,
+                                                        fit: BoxFit
+                                                            .contain, // contain image
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
-                                              IconButton(
-                                                onPressed: () {
-                                                  if (victims > 1) {
-                                                    removeAVictim();
-                                                  }
-                                                },
-                                                icon: Image.asset(
-                                                  // place image as the child of the container
-                                                  'lib/images/minus.png', // access image from lib/images folder
-                                                  width: 60.0.sp,
-                                                  height: 60.0.sp,
-                                                  fit: BoxFit
-                                                      .contain, // contain image
+                                              SizedBox(height: 10.0.sp),
+                                              Visibility( // victim 3
+                                                visible: (victims > 2),
+                                                child: Column(
+                                                  children: [
+                                                    Align(
+                                                      alignment: Alignment.topLeft,
+                                                      child: SizedBox(
+                                                        width: 300.0.sp,
+                                                        height: 60.0.sp,
+                                                        child: TextField(
+                                                          controller: _victim3,
+                                                          enableSuggestions: false,
+                                                          autocorrect: false,
+                                                          keyboardType:
+                                                              TextInputType.name,
+                                                          decoration:
+                                                              const InputDecoration(
+                                                            border:
+                                                                OutlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                  width: 20.0,
+                                                                  style: BorderStyle
+                                                                      .solid,
+                                                                  color: Colors.black,
+                                                                  strokeAlign: BorderSide
+                                                                      .strokeAlignCenter),
+                                                              borderRadius:
+                                                                  BorderRadius.all(
+                                                                      Radius.circular(
+                                                                          7)),
+                                                            ),
+                                                            filled: true,
+                                                            fillColor: Colors.white,
+                                                            contentPadding:
+                                                                EdgeInsets.all(10.0),
+                                                            hintText:
+                                                                'Name of Victim 3',
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      "If there are more victims, mention it in the additional details section later.",
+                                                      style: TextStyle(
+                                                          fontSize: 17.sp,
+                                                          fontWeight:
+                                                              FontWeight.w400),
+                                                    )
+                                                  ],
                                                 ),
                                               ),
+                                              Row(
+                                                children: [
+                                                  Align( // bully 1
+                                                    alignment: Alignment.topLeft,
+                                                    child: SizedBox(
+                                                      width: 300.0.sp,
+                                                      height: 60.0.sp,
+                                                      child: TextField(
+                                                        controller: _bully,
+                                                        enableSuggestions: false,
+                                                        autocorrect: false,
+                                                        keyboardType:
+                                                            TextInputType.name,
+                                                        decoration:
+                                                            const InputDecoration(
+                                                          border: OutlineInputBorder(
+                                                            borderSide: BorderSide(
+                                                                width: 20.0,
+                                                                style:
+                                                                    BorderStyle.solid,
+                                                                color: Colors.black,
+                                                                strokeAlign: BorderSide
+                                                                    .strokeAlignCenter),
+                                                            borderRadius:
+                                                                BorderRadius.all(
+                                                                    Radius.circular(
+                                                                        7)),
+                                                          ),
+                                                          filled: true,
+                                                          fillColor: Colors.white,
+                                                          contentPadding:
+                                                              EdgeInsets.all(10.0),
+                                                          hintText: 'Name of Bully',
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      if (bullies < 4) {
+                                                        addABully();
+                                                      }
+                                                    },
+                                                    icon: Image.asset(
+                                                      // place image as the child of the container
+                                                      'lib/images/plus.png', // access image from lib/images folder
+                                                      width: 60.0.sp,
+                                                      height: 60.0.sp,
+                                                      fit: BoxFit
+                                                          .contain, // contain image
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(height: 10.0.sp),
+                                              Visibility( // bully 2
+                                                visible: (bullies > 1),
+                                                child: Row(
+                                                  children: [
+                                                    Align(
+                                                      alignment: Alignment.topLeft,
+                                                      child: SizedBox(
+                                                        width: 300.0.sp,
+                                                        height: 60.0.sp,
+                                                        child: TextField(
+                                                          controller: _bully2,
+                                                          enableSuggestions: false,
+                                                          autocorrect: false,
+                                                          keyboardType:
+                                                              TextInputType.name,
+                                                          decoration:
+                                                              const InputDecoration(
+                                                            border:
+                                                                OutlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                  width: 20.0,
+                                                                  style: BorderStyle
+                                                                      .solid,
+                                                                  color: Colors.black,
+                                                                  strokeAlign: BorderSide
+                                                                      .strokeAlignCenter),
+                                                              borderRadius:
+                                                                  BorderRadius.all(
+                                                                      Radius.circular(
+                                                                          7)),
+                                                            ),
+                                                            filled: true,
+                                                            fillColor: Colors.white,
+                                                            contentPadding:
+                                                                EdgeInsets.all(10.0),
+                                                            hintText:
+                                                                'Name of Bully 2',
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        if (bullies > 1) {
+                                                          removeABully();
+                                                        }
+                                                      },
+                                                      icon: Image.asset(
+                                                        // place image as the child of the container
+                                                        'lib/images/minus.png', // access image from lib/images folder
+                                                        width: 60.0.sp,
+                                                        height: 60.0.sp,
+                                                        fit: BoxFit
+                                                            .contain, // contain image
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              SizedBox(height: 10.0.sp),
+                                              Visibility( // bully 3
+                                                visible: (bullies > 2),
+                                                child: Column(
+                                                  children: [
+                                                    Align(
+                                                      alignment: Alignment.topLeft,
+                                                      child: SizedBox(
+                                                        width: 300.0.sp,
+                                                        height: 60.0.sp,
+                                                        child: TextField(
+                                                          controller: _bully3,
+                                                          enableSuggestions: false,
+                                                          autocorrect: false,
+                                                          keyboardType:
+                                                              TextInputType.name,
+                                                          decoration:
+                                                              const InputDecoration(
+                                                            border:
+                                                                OutlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                  width: 20.0,
+                                                                  style: BorderStyle
+                                                                      .solid,
+                                                                  color: Colors.black,
+                                                                  strokeAlign: BorderSide
+                                                                      .strokeAlignCenter),
+                                                              borderRadius:
+                                                                  BorderRadius.all(
+                                                                      Radius.circular(
+                                                                          7)),
+                                                            ),
+                                                            filled: true,
+                                                            fillColor: Colors.white,
+                                                            contentPadding:
+                                                                EdgeInsets.all(10.0),
+                                                            hintText:
+                                                                'Name of Bully 3',
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      "If there are more bullies, mention it in the additional details section later.",
+                                                      style: TextStyle(
+                                                          fontSize: 17.sp,
+                                                          fontWeight:
+                                                              FontWeight.w400),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              Spacer(),
+                                              Row(
+                                                // creates a row for the buttons
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.spaceEvenly,
+                                                children: [
+                                                  IconButton(
+                                                    // icon button  - home
+                                                    onPressed: () {
+                                                      // takes you to home page
+                                                      Navigator.pushNamed(
+                                                          context, '/HomePage');
+                                                    },
+                                                    icon: Image.asset(
+                                                      // place image as the child of the container
+                                                      'lib/images/home.png', // access image from lib/images folder
+                                                      width: 70.0.sp,
+                                                      height: 70.0.sp,
+                                                      fit: BoxFit
+                                                          .contain, // contain image
+                                                    ),
+                                                  ),
+                                                  IconButton(
+                                                    // icon button - back
+                                                    onPressed: () {
+                                                      // takes you to home page
+                                                      page = page - 1;
+                                                      if (page < 1) {
+                                                        Navigator.pushNamed(
+                                                            context, '/HomePage');
+                                                      } else {
+                                                        changePage();
+                                                      }
+                                                    },
+                                                    icon: Image.asset(
+                                                      // place image as the child of the container
+                                                      'lib/images/back.png', // access image from lib/images folder
+                                                      width: 70.0.sp,
+                                                      height: 70.0.sp,
+                                                      fit: BoxFit
+                                                          .contain, // contain image
+                                                    ),
+                                                  ),
+                                                  IconButton(
+                                                    // icon button  - home
+                                                    onPressed: () {
+                                                      // takes you to home page
+                                                      page = page + 1;
+                                                      if (page > 3) {
+                                                        Navigator.pushNamed(
+                                                            context, '/HomePage');
+                                                      } else {
+                                                        changePage();
+                                                      }
+                                                    },
+                                                    icon: Image.asset(
+                                                      // place image as the child of the container
+                                                      'lib/images/next.png', // access image from lib/images folder
+                                                      width: 70.0.sp,
+                                                      height: 70.0.sp,
+                                                      fit: BoxFit
+                                                          .contain, // contain image
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(height: 20.0.sp),
                                             ],
                                           ),
-                                        ),
-                                        SizedBox(height: 10.0.sp),
-                                        Visibility(
-                                          // victim 3
-                                          visible: (victims > 2),
-                                          child: Column(
-                                            children: [
-                                              Align(
-                                                alignment: Alignment.topLeft,
-                                                child: SizedBox(
-                                                  width: 300.0.sp,
-                                                  height: 60.0.sp,
-                                                  child: TextField(
-                                                    controller: _victim3,
-                                                    enableSuggestions: false,
-                                                    autocorrect: false,
-                                                    keyboardType:
-                                                        TextInputType.name,
-                                                    decoration:
-                                                        const InputDecoration(
-                                                      border:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                            width: 20.0,
-                                                            style: BorderStyle
-                                                                .solid,
-                                                            color: Colors.black,
-                                                            strokeAlign: BorderSide
-                                                                .strokeAlignCenter),
-                                                        borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    7)),
-                                                      ),
-                                                      filled: true,
-                                                      fillColor: Colors.white,
-                                                      contentPadding:
-                                                          EdgeInsets.all(10.0),
-                                                      hintText:
-                                                          'Name of Victim 3',
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Text(
-                                                "If there are more victims, mention it in the additional details section later.",
-                                                style: TextStyle(
-                                                    fontSize: 17.sp,
-                                                    fontWeight:
-                                                        FontWeight.w400),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        Row(
-                                          children: [
-                                            Align(
-                                              // bully 1
-                                              alignment: Alignment.topLeft,
-                                              child: SizedBox(
-                                                width: 300.0.sp,
-                                                height: 60.0.sp,
-                                                child: TextField(
-                                                  controller: _bully,
-                                                  enableSuggestions: false,
-                                                  autocorrect: false,
-                                                  keyboardType:
-                                                      TextInputType.name,
-                                                  decoration:
-                                                      const InputDecoration(
-                                                    border: OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                          width: 20.0,
-                                                          style:
-                                                              BorderStyle.solid,
-                                                          color: Colors.black,
-                                                          strokeAlign: BorderSide
-                                                              .strokeAlignCenter),
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  7)),
-                                                    ),
-                                                    filled: true,
-                                                    fillColor: Colors.white,
-                                                    contentPadding:
-                                                        EdgeInsets.all(10.0),
-                                                    hintText: 'Name of Bully',
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            IconButton(
-                                              onPressed: () {
-                                                if (bullies < 4) {
-                                                  addABully();
-                                                }
-                                              },
-                                              icon: Image.asset(
-                                                // place image as the child of the container
-                                                'lib/images/plus.png', // access image from lib/images folder
-                                                width: 60.0.sp,
-                                                height: 60.0.sp,
-                                                fit: BoxFit
-                                                    .contain, // contain image
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(height: 10.0.sp),
-                                        Visibility(
-                                          // bully 2
-                                          visible: (bullies > 1),
-                                          child: Row(
-                                            children: [
-                                              Align(
-                                                alignment: Alignment.topLeft,
-                                                child: SizedBox(
-                                                  width: 300.0.sp,
-                                                  height: 60.0.sp,
-                                                  child: TextField(
-                                                    controller: _bully2,
-                                                    enableSuggestions: false,
-                                                    autocorrect: false,
-                                                    keyboardType:
-                                                        TextInputType.name,
-                                                    decoration:
-                                                        const InputDecoration(
-                                                      border:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                            width: 20.0,
-                                                            style: BorderStyle
-                                                                .solid,
-                                                            color: Colors.black,
-                                                            strokeAlign: BorderSide
-                                                                .strokeAlignCenter),
-                                                        borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    7)),
-                                                      ),
-                                                      filled: true,
-                                                      fillColor: Colors.white,
-                                                      contentPadding:
-                                                          EdgeInsets.all(10.0),
-                                                      hintText:
-                                                          'Name of Bully 2',
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              IconButton(
-                                                onPressed: () {
-                                                  if (bullies > 1) {
-                                                    removeABully();
-                                                  }
-                                                },
-                                                icon: Image.asset(
-                                                  // place image as the child of the container
-                                                  'lib/images/minus.png', // access image from lib/images folder
-                                                  width: 60.0.sp,
-                                                  height: 60.0.sp,
-                                                  fit: BoxFit
-                                                      .contain, // contain image
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        SizedBox(height: 10.0.sp),
-                                        Visibility(
-                                          // bully 3
-                                          visible: (bullies > 2),
-                                          child: Column(
-                                            children: [
-                                              Align(
-                                                alignment: Alignment.topLeft,
-                                                child: SizedBox(
-                                                  width: 300.0.sp,
-                                                  height: 60.0.sp,
-                                                  child: TextField(
-                                                    controller: _bully3,
-                                                    enableSuggestions: false,
-                                                    autocorrect: false,
-                                                    keyboardType:
-                                                        TextInputType.name,
-                                                    decoration:
-                                                        const InputDecoration(
-                                                      border:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                            width: 20.0,
-                                                            style: BorderStyle
-                                                                .solid,
-                                                            color: Colors.black,
-                                                            strokeAlign: BorderSide
-                                                                .strokeAlignCenter),
-                                                        borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    7)),
-                                                      ),
-                                                      filled: true,
-                                                      fillColor: Colors.white,
-                                                      contentPadding:
-                                                          EdgeInsets.all(10.0),
-                                                      hintText:
-                                                          'Name of Bully 3',
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Text(
-                                                "If there are more bullies, mention it in the additional details section later.",
-                                                style: TextStyle(
-                                                    fontSize: 17.sp,
-                                                    fontWeight:
-                                                        FontWeight.w400),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        Spacer(),
-                                        Row(
-                                          // creates a row for the buttons
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            IconButton(
-                                              // icon button  - home
-                                              onPressed: () {
-                                                // takes you to home page
-                                                Navigator.pushNamed(
-                                                    context, '/HomePage');
-                                              },
-                                              icon: Image.asset(
-                                                // place image as the child of the container
-                                                'lib/images/home.png', // access image from lib/images folder
-                                                width: 70.0.sp,
-                                                height: 70.0.sp,
-                                                fit: BoxFit
-                                                    .contain, // contain image
-                                              ),
-                                            ),
-                                            IconButton(
-                                              // icon button - back
-                                              onPressed: () {
-                                                // takes you to home page
-                                                page = page - 1;
-                                                if (page < 1) {
-                                                  Navigator.pushNamed(
-                                                      context, '/HomePage');
-                                                } else {
-                                                  changePage();
-                                                }
-                                              },
-                                              icon: Image.asset(
-                                                // place image as the child of the container
-                                                'lib/images/back.png', // access image from lib/images folder
-                                                width: 70.0.sp,
-                                                height: 70.0.sp,
-                                                fit: BoxFit
-                                                    .contain, // contain image
-                                              ),
-                                            ),
-                                            IconButton(
-                                              // icon button  - home
-                                              onPressed: () {
-                                                // takes you to home page
-                                                page = page + 1;
-                                                if (page > 3) {
-                                                  Navigator.pushNamed(
-                                                      context, '/HomePage');
-                                                } else {
-                                                  changePage();
-                                                }
-                                              },
-                                              icon: Image.asset(
-                                                // place image as the child of the container
-                                                'lib/images/next.png', // access image from lib/images folder
-                                                width: 70.0.sp,
-                                                height: 70.0.sp,
-                                                fit: BoxFit
-                                                    .contain, // contain image
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(height: 20.0.sp),
-                                      ],
-                                    ),
-                                  ),
+                                        
+                                      ),
                                 ],
                               ),
                             ),
-
+                      
                             // page 3
                             Visibility(
                               visible: page == 3,
                               child: Stack(
                                 children: [
-                                  Image.asset(
-                                      "lib/images/Android Large - 12.png"),
+                                  Image.asset("lib/images/Android Large - 12.png"),
                                   Container(
                                     color: Colors.transparent,
                                     padding: EdgeInsets.all(10.0.sp),
@@ -1562,8 +1517,7 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                         SizedBox(height: 30.0.sp),
                                         Row(
                                           children: [
-                                            Align(
-                                              // witness 1
+                                            Align( // witness 1 
                                               alignment: Alignment.topLeft,
                                               child: SizedBox(
                                                 width: 300.0.sp,
@@ -1572,22 +1526,17 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                                   controller: _witness,
                                                   enableSuggestions: false,
                                                   autocorrect: false,
-                                                  keyboardType:
-                                                      TextInputType.name,
-                                                  decoration:
-                                                      const InputDecoration(
+                                                  keyboardType: TextInputType.name,
+                                                  decoration: const InputDecoration(
                                                     border: OutlineInputBorder(
                                                       borderSide: BorderSide(
                                                           width: 20.0,
-                                                          style:
-                                                              BorderStyle.solid,
+                                                          style: BorderStyle.solid,
                                                           color: Colors.black,
                                                           strokeAlign: BorderSide
                                                               .strokeAlignCenter),
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  7)),
+                                                      borderRadius: BorderRadius.all(
+                                                          Radius.circular(7)),
                                                     ),
                                                     filled: true,
                                                     fillColor: Colors.white,
@@ -1609,15 +1558,13 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                                 'lib/images/plus.png', // access image from lib/images folder
                                                 width: 60.0.sp,
                                                 height: 60.0.sp,
-                                                fit: BoxFit
-                                                    .contain, // contain image
+                                                fit: BoxFit.contain, // contain image
                                               ),
                                             ),
                                           ],
                                         ),
                                         SizedBox(height: 10.0.sp),
-                                        Visibility(
-                                          // witness 2
+                                        Visibility( // witness 2
                                           visible: (witnesses > 1),
                                           child: Row(
                                             children: [
@@ -1630,35 +1577,29 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                                     controller: _witness2,
                                                     enableSuggestions: false,
                                                     autocorrect: false,
-                                                    keyboardType:
-                                                        TextInputType.name,
-                                                    decoration:
-                                                        const InputDecoration(
-                                                      border:
-                                                          OutlineInputBorder(
+                                                    keyboardType: TextInputType.name,
+                                                    decoration: const InputDecoration(
+                                                      border: OutlineInputBorder(
                                                         borderSide: BorderSide(
                                                             width: 20.0,
-                                                            style: BorderStyle
-                                                                .solid,
+                                                            style: BorderStyle.solid,
                                                             color: Colors.black,
                                                             strokeAlign: BorderSide
                                                                 .strokeAlignCenter),
                                                         borderRadius:
                                                             BorderRadius.all(
-                                                                Radius.circular(
-                                                                    7)),
+                                                                Radius.circular(7)),
                                                       ),
                                                       filled: true,
                                                       fillColor: Colors.white,
                                                       contentPadding:
                                                           EdgeInsets.all(10.0),
-                                                      hintText:
-                                                          'Name of Witness 2',
+                                                      hintText: 'Name of Witness 2',
                                                     ),
                                                   ),
                                                 ),
                                               ),
-                                              IconButton(
+                                              IconButton( 
                                                 onPressed: () {
                                                   if (witnesses > 1) {
                                                     removeAWitness();
@@ -1669,16 +1610,15 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                                   'lib/images/minus.png', // access image from lib/images folder
                                                   width: 60.0.sp,
                                                   height: 60.0.sp,
-                                                  fit: BoxFit
-                                                      .contain, // contain image
+                                                  fit:
+                                                      BoxFit.contain, // contain image
                                                 ),
                                               ),
                                             ],
                                           ),
                                         ),
                                         SizedBox(height: 10.0.sp),
-                                        Visibility(
-                                          // witness 3
+                                        Visibility( // witness 3
                                           visible: (witnesses > 2),
                                           child: Column(
                                             children: [
@@ -1691,30 +1631,24 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                                     controller: _witness3,
                                                     enableSuggestions: false,
                                                     autocorrect: false,
-                                                    keyboardType:
-                                                        TextInputType.name,
-                                                    decoration:
-                                                        const InputDecoration(
-                                                      border:
-                                                          OutlineInputBorder(
+                                                    keyboardType: TextInputType.name,
+                                                    decoration: const InputDecoration(
+                                                      border: OutlineInputBorder(
                                                         borderSide: BorderSide(
                                                             width: 20.0,
-                                                            style: BorderStyle
-                                                                .solid,
+                                                            style: BorderStyle.solid,
                                                             color: Colors.black,
                                                             strokeAlign: BorderSide
                                                                 .strokeAlignCenter),
                                                         borderRadius:
                                                             BorderRadius.all(
-                                                                Radius.circular(
-                                                                    7)),
+                                                                Radius.circular(7)),
                                                       ),
                                                       filled: true,
                                                       fillColor: Colors.white,
                                                       contentPadding:
                                                           EdgeInsets.all(10.0),
-                                                      hintText:
-                                                          'Name of Witness 3',
+                                                      hintText: 'Name of Witness 3',
                                                     ),
                                                   ),
                                                 ),
@@ -1723,14 +1657,12 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                                 "If there are more witnesses, mention it in the additional details section later.",
                                                 style: TextStyle(
                                                     fontSize: 17.sp,
-                                                    fontWeight:
-                                                        FontWeight.w400),
+                                                    fontWeight: FontWeight.w400),
                                               )
                                             ],
                                           ),
                                         ),
-                                        Align(
-                                          // details about incident text box
+                                        Align( // details about incident text box
                                           alignment: Alignment.topLeft,
                                           child: SizedBox(
                                             width: 300.0.sp,
@@ -1747,14 +1679,12 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                                       color: Colors.black,
                                                       strokeAlign: BorderSide
                                                           .strokeAlignCenter),
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(7)),
+                                                  borderRadius: BorderRadius.all(
+                                                      Radius.circular(7)),
                                                 ),
                                                 filled: true,
                                                 fillColor: Colors.white,
-                                                contentPadding:
-                                                    EdgeInsets.all(10.0),
+                                                contentPadding: EdgeInsets.all(10.0),
                                                 hintText:
                                                     'Details about the incident',
                                               ),
@@ -1779,8 +1709,7 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                                 'lib/images/home.png', // access image from lib/images folder
                                                 width: 70.0.sp,
                                                 height: 70.0.sp,
-                                                fit: BoxFit
-                                                    .contain, // contain image
+                                                fit: BoxFit.contain, // contain image
                                               ),
                                             ),
                                             IconButton(
@@ -1800,19 +1729,12 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                                 'lib/images/back.png', // access image from lib/images folder
                                                 width: 70.0.sp,
                                                 height: 70.0.sp,
-                                                fit: BoxFit
-                                                    .contain, // contain image
+                                                fit: BoxFit.contain, // contain image
                                               ),
                                             ),
                                             IconButton(
+                                             
                                               onPressed: () async {
-                                                FirebaseMessaging messaging =
-                                                    FirebaseMessaging.instance;
-
-                                                // Get the FCM token for this device
-                                                String? fcmToken =
-                                                    await messaging.getToken();
-
                                                 await FirebaseFirestore.instance
                                                     .collection("ReportingForm")
                                                     .add({
@@ -1830,33 +1752,17 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                                                   'witness1': _witness.text,
                                                   'witness2': _witness2.text,
                                                   'witness3': _witness3.text,
-                                                  'submittedAt': FieldValue
-                                                      .serverTimestamp(),
-                                                  'fcmToken': fcmToken,
-                                                });
-
-                                                // Submit the form data, including the FCM token
-                                                await FirebaseFirestore.instance
-                                                    .collection('ReportingForm')
-                                                    .add({
-                                                  'reportName': 'name',
-                                                  'fcmToken': fcmToken,
-                                                  'submittedAt': FieldValue
-                                                      .serverTimestamp(),
-                                                });
-
-                                                print(
-                                                    "Form submitted and FCM token saved.");
+                                                }); 
                                                 page = 4;
                                                 changePage();
+                                                 
                                               },
                                               icon: Image.asset(
                                                 // place image as the child of the container
                                                 'lib/images/submit.png', // access image from lib/images folder
                                                 width: 95.0.sp,
                                                 height: 25.0.sp,
-                                                fit: BoxFit
-                                                    .contain, // contain image
+                                                fit: BoxFit.contain, // contain image
                                               ),
                                             ),
                                           ],
@@ -1868,43 +1774,47 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                               ),
                             ),
 
-                            // page 4 - submitted
+                            // page 4 - submitted 
                             Visibility(
-                                visible: (page == 4),
-                                child: Container(
-                                    height: height,
-                                    color:
-                                        Color(0xFFEB7C10), // background colour
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          // confirmation message
-                                          alignment: Alignment.centerLeft,
-                                          padding: EdgeInsets.all(10.0.sp),
-                                          child: Text(
-                                            'Success! Your response has been recorded.',
+                              visible: (page == 4),
+                              child: 
+                              Container (
+                                height: height,
+                                color: Color(0xFFEB7C10), // background colour
+                                child:
+                                Column (
+                                  mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                  children: [
+                                          
+                                          Container( // confirmation message
+                                            alignment: Alignment.centerLeft,
+                                            padding: EdgeInsets.all(10.0.sp),
+                                            child: Text(
+                                              'Success! Your response has been recorded.',
+                                            ),
                                           ),
-                                        ),
-                                        IconButton(
-                                          // icon  home
-                                          onPressed: () {
-                                            // takes you to home page
-                                            Navigator.pushNamed(
-                                                context, '/HomePage');
-                                          },
-                                          icon: Image.asset(
-                                            // place image as the child of the container
-                                            'lib/images/home.png', // access image from lib/images folder
-                                            width: 100.0.sp,
-                                            height: 100.0.sp,
-                                            fit:
-                                                BoxFit.contain, // contain image
-                                          ),
-                                        ),
-                                      ],
-                                    ))),
+                                          
+                                          IconButton(
+                                              // icon  home
+                                              onPressed: () {
+                                                // takes you to home page
+                                                Navigator.pushNamed(
+                                                    context, '/HomePage');
+                                              },
+                                              icon: Image.asset(
+                                                // place image as the child of the container
+                                                'lib/images/home.png', // access image from lib/images folder
+                                                width: 100.0.sp,
+                                                height: 100.0.sp,
+                                                fit: BoxFit.contain, // contain image
+                                              ),
+                                            ),
+                                          
+                                           ],
+                                )
+                              )
+                            ),
                           ],
                         ),
                       ),

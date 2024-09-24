@@ -90,11 +90,11 @@ class _FormViewState extends State<FormView> {
                                       ),
                                       // textAlign: TextAlign.left  ,
                                       ),
-                                      Text('time: ' + data['time'],
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 18,
-                                      ),),
+                                    //   Text('time: ' + data['time'],
+                                    // style: TextStyle(
+                                    //     fontWeight: FontWeight.w400,
+                                    //     fontSize: 18,
+                                    //   ),),
                                     
                                       Text('type: ' + data['type'],
                                     style: TextStyle(
