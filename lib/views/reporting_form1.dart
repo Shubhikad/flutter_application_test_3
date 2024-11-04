@@ -363,6 +363,7 @@ class _ReportingFormViewState extends State<ReportingFormView> {
         ),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
             case ConnectionState.done:
               return ScreenUtilInit(
                 designSize: Size(430, 932),
@@ -1823,7 +1824,7 @@ class _ReportingFormViewState extends State<ReportingFormView> {
                 },
               );
             default:
-              return const Text('Loading...'); // backup
+              return const Scaffold(); // backup
           }
         });
   }
