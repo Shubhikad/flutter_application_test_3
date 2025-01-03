@@ -1,0 +1,48 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "bully_alert_ios",
+            "cwd": "Users/tvish/BULLY_ALERT_IOS/bully_alert_ios",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "bully_alert_ios (profile mode)",
+            "cwd": "Users/tvish/BULLY_ALERT_IOS/bully_alert_ios",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "bully_alert_ios (release mode)",
+            "cwd": "Users/tvish/BULLY_ALERT_IOS/bully_alert_ios",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "flutter_application_test_3",
+            "cwd": "Users/tvish/Bully_Alert/flutter_application_test_3",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "flutter_application_test_3 (profile mode)",
+            "cwd": "Users/tvish/Bully_Alert/flutter_application_test_3",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "flutter_application_test_3 (release mode)",
+            "cwd": "Users/tvish/Bully_Alert/flutter_application_test_3",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
