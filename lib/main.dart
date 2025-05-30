@@ -14,25 +14,30 @@ import 'package:flutter_application_test_3/views/profile_view.dart';
 import 'package:flutter_application_test_3/views/register_view.dart';
 import 'package:flutter_application_test_3/views/reporting_form1.dart';
 import 'package:firebase_admin/firebase_admin.dart';
-import 'package:location/location.dart';
+import 'package:flutter_application_test_3/views/reportingform_view.dart';
+import 'package:flutter_application_test_3/views/verification_page.dart';
+import 'package:location/location.dart' as loc;
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Handling a background message: ${message.messageId}");
 }
 
-// void sendPushNotification(String token, String title, String body) async {
-//   try{
-//     await http.post()
-//   }
-// }
+Future<bool> requestStoragePermission() async {
+  var status = await Permission.storage.status;
+  if (!status.isGranted) {
+    status = await Permission.storage.request();
+  }
+  return status.isGranted;
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  Location location = new Location();
+  loc.Location location = loc.Location();
 
-  PermissionStatus _permissionGranted;
+  loc.PermissionStatus _permissionGranted;
 
   NotificationSettings settings =
       await FirebaseMessaging.instance.requestPermission(
@@ -40,12 +45,16 @@ void main() async {
     provisional: true,
   );
 
-  // await LocalNotificationService().init();
+  bool storagePermissionGranted = await requestStoragePermission();
+  if (!storagePermissionGranted) {
+    // You can choose to show a message or exit app here if storage permission is essential
+    print("Storage permission denied. The app may not work correctly.");
+  }
 
   _permissionGranted = await location.hasPermission();
-  if (_permissionGranted == PermissionStatus.denied) {
+  if (_permissionGranted == loc.PermissionStatus.denied) {
     _permissionGranted = await location.requestPermission();
-    if (_permissionGranted != PermissionStatus.granted) {
+    if (_permissionGranted != loc.PermissionStatus.granted) {
       return;
     }
   }
@@ -71,10 +80,11 @@ void main() async {
         '/Profile': (context) => const ProfileView(),
         '/PreView': (context) => const PreView(),
         '/AboutBullying': (context) => const AboutBullying(),
-        '/ReportingFormView': (context) => const ReportingFormView(),
+        '/ReportingFormView': (context) => const BullyingReportingForm(),
         '/AntibullyingSquadView': (context) => const AntibullyingSquadView(),
         '/AlertView': (context) => const AlertView(),
         '/FormView': (context) => const FormView(),
+        '/Verification': (context) => const VerificationPage(),
         
       }));
   //MaterialApp
